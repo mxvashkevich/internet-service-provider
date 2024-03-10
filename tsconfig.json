@@ -22,12 +22,12 @@
     "baseUrl": ".",
     "paths": {
       "@src/*": ["./src/*"],
-      "@components/*": ["./src/components/*"],
+      "@components/*": ["src/components/*"],
       "@store/*": ["./src/store/*"],
-      "@atoms": ["./src/components/atoms/*"],
-      "@molecules": ["./src/components/molecules/*"],
-      "@organisms": ["./src/components/organisms/*"],
-      "@pages": ["./src/components/pages/*"],
+      "@atoms": ["src/components/atoms/*"],
+      "@molecules": ["src/components/molecules/*"],
+      "@organisms": ["src/components/organisms/*"],
+      "@pages": ["src/components/pages/*"],
     }
   },
   "include": ["src"],
