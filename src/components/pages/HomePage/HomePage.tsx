@@ -1,4 +1,4 @@
-import Finder from '@src/components/molecules/Finder.js';
+import Finder from '@src/components/molecules/Finder/Finder';
 
 export default function HomePage() {
   return (

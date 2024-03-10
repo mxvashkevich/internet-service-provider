@@ -1,0 +1,23 @@
+.image {
+  @apply w-14 h-14 self-center
+}
+
+.figure {
+  @apply flex
+}
+
+.navigator {
+  @apply flex gap-4 self-center
+}
+
+.containerButtons {
+  @apply flex justify-around
+}
+
+.navigateLink {
+  @apply self-center
+}
+
+.buttonCheck {
+  @apply mr-3 rounded-3xl normal-case text-lg py-5
+}

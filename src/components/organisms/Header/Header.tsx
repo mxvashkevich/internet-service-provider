@@ -1,16 +1,19 @@
 import { Button, Grid, Paper, Typography } from '@mui/material';
 
-import Navigator from '../Navigator/Navigator.js';
-import NavigateLink from '../../atoms/NavigateLink.js';
-import { useStore } from '@store/store.js';
+import { useStore } from '@store/store.ts';
+
+import Navigator from '@components/organisms/Navigator/Navigator';
+import NavigateLink from '@components/atoms/NavigateLink';
+
+import styles from './Header.module.scss';
 
 export default function Header() {
   const isAuth = useStore((store) => store.isAuth);
   return (
     <Paper elevation={4}>
       <Grid container className='p-2' component='header'>
-        <Grid xs={2} item component='figure' className='flex'>
-          <img src='src/assets/logo.png' alt='logo image' className='w-14 h-14 self-center' />
+        <Grid xs={2} item component='figure' className={styles.figure}>
+          <img src='src/assets/logo.png' alt='logo image' className={styles.image} />
           <Typography
             component='figcaption'
             className='self-center'
@@ -20,25 +23,18 @@ export default function Header() {
             TNGinter
           </Typography>
         </Grid>
-        <Grid xs={6} item component='nav' className='flex gap-4 self-center'>
+        <Grid xs={6} item component='nav' className={styles.navigator}>
           <Navigator />
         </Grid>
-        <Grid xs={4} item className='flex justify-around'>
-          <Button
-            variant='contained'
-            color='primary'
-            size='small'
-            className='mr-3'
-            sx={{
-              borderRadius: '27px',
-              textTransform: 'none',
-              fontSize: '18px',
-              padding: '0 18px',
-            }}
-          >
+        <Grid xs={4} item className={styles.containerButtons}>
+          <Button variant='contained' color='primary' size='small' className={styles.buttonCheck}>
             Проверить доступность
           </Button>
-          <NavigateLink linkTo='/auth' label={isAuth ? 'Выйти' : 'Выйти'} className='self-center' />
+          <NavigateLink
+            linkTo='/auth'
+            label={isAuth ? 'Выйти' : 'Войти'}
+            className={styles.navigateLink}
+          />
         </Grid>
       </Grid>
     </Paper>

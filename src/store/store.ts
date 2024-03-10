@@ -1,8 +1,17 @@
-import { create } from 'zustand';
+import { StoreApi, UseBoundStore, create } from 'zustand';
 
-export const useStore = create((set) => ({
+type TRole = 'user' | 'admin';
+
+type TStore = {
+  isAuth: boolean;
+  role: TRole;
+  setAuthStatus: (flag: boolean) => void;
+  setRole?: (role: TRole) => void;
+};
+
+export const useStore: UseBoundStore<StoreApi<TStore>> = create((set) => ({
   isAuth: false,
   role: 'user',
-  setAuthStatus: (flag: boolean) => set(() => ({ isAuth: flag })),
-  setRole: (role: string) => set(() => ({ role })),
+  setAuthStatus: (flag) => set(() => ({ isAuth: flag })),
+  setRole: (role) => set(() => ({ role })),
 }));

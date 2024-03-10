@@ -1,0 +1,19 @@
+.container {
+  @apply flex flex-col gap-5 p-5 justify-center items-center
+}
+
+.header {
+  @apply flex gap-5 justify-center
+}
+
+.form {
+  @apply flex flex-col gap-5
+}
+
+.image {
+  @apply w-14 h-14 self-center
+}
+
+.btns {
+  @apply flex gap-5 justify-center
+}

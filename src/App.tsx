@@ -1,7 +1,13 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { useBeforeunload } from 'react-beforeunload';
 
-import { AboutPage, AuthPage, BusinessPage, HomePage, Layout } from '@src/components/pages';
+import {
+  AboutPage,
+  AuthPage,
+  BusinessPage,
+  HomePage,
+  Layout,
+} from '@src/components/pages/index.ts';
 
 import './index.css';
 
@@ -10,8 +16,7 @@ const router = createBrowserRouter([
     path: '/',
     element: (
       <Layout>
-        {' '}
-        <HomePage />{' '}
+        <HomePage />
       </Layout>
     ),
   },
@@ -19,8 +24,7 @@ const router = createBrowserRouter([
     path: '/about',
     element: (
       <Layout>
-        {' '}
-        <AboutPage />{' '}
+        <AboutPage />
       </Layout>
     ),
   },
@@ -28,14 +32,17 @@ const router = createBrowserRouter([
     path: '/business',
     element: (
       <Layout>
-        {' '}
-        <BusinessPage />{' '}
+        <BusinessPage />
       </Layout>
     ),
   },
   {
     path: '/auth',
-    element: <AuthPage />,
+    element: (
+      <Layout>
+        <AuthPage />
+      </Layout>
+    ),
   },
 ]);
 
