@@ -7,6 +7,7 @@ export default function AuthComponent() {
   const [isAccountAvailable, setIsAccountAvailable] = useState(false);
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
     console.log(e);
   };
 
@@ -14,20 +15,47 @@ export default function AuthComponent() {
     <Box className={styles.container} component={'div'}>
       <Box className={styles.header}>
         <img src='src/assets/logo.png' alt='logo image' className={styles.image} />
-        <Typography component='figcaption' className='self-center' fontWeight={700} fontSize='30px'>
+        <Typography
+          component='figcaption'
+          className={styles.title}
+          fontWeight={700}
+          fontSize='24px'
+        >
           TNGinter
         </Typography>
       </Box>
-      <Typography variant='h4'>{!isAccountAvailable ? 'Вход в систему' : 'Регистрация'}</Typography>
+      <Typography variant='h4' fontWeight={500} fontSize={'32px'}>
+        {!isAccountAvailable ? 'Вход в систему' : 'Регистрация'}
+      </Typography>
       <form onSubmit={handleSubmit} className={styles.form}>
         {isAccountAvailable && (
           <>
-            <TextField id='outlined-basic' label='Введите ФИО' variant='outlined' />
-            <TextField id='outlined-basic' label='Введите номер телефона' variant='outlined' />
+            <TextField
+              className={styles.input}
+              id='outlined-basic'
+              label='Введите ФИО'
+              variant='outlined'
+            />
+            <TextField
+              className={styles.input}
+              id='outlined-basic'
+              label='Введите номер телефона'
+              variant='outlined'
+            />
           </>
         )}
-        <TextField id='outlined-basic' label='Введите логин' variant='outlined' />
-        <TextField id='outlined-basic' label='Введите пароль' variant='outlined' />
+        <TextField
+          className={styles.input}
+          id='outlined-basic'
+          label='Введите логин'
+          variant='outlined'
+        />
+        <TextField
+          className={styles.input}
+          id='outlined-basic'
+          label='Введите пароль'
+          variant='outlined'
+        />
         <Box className={styles.btns}>
           <Button
             variant='text'

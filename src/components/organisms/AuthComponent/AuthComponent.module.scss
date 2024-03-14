@@ -1,13 +1,21 @@
 .container {
-  @apply flex flex-col gap-5 p-5 justify-center items-center
+  @apply flex flex-col gap-5 p-0 justify-center items-center
 }
 
 .header {
-  @apply flex gap-5 justify-center
+  @apply flex justify-center
+}
+
+.title {
+  @apply self-center text-gray-500
 }
 
 .form {
-  @apply flex flex-col gap-5
+  @apply flex flex-col gap-5 mt-24 w-5/6
+}
+
+.input {
+  @apply w-full
 }
 
 .image {
@@ -15,5 +23,5 @@
 }
 
 .btns {
-  @apply flex gap-5 justify-center
+  @apply flex gap-5 justify-between mt-10
 }

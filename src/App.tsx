@@ -1,5 +1,6 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { useBeforeunload } from 'react-beforeunload';
+import { ThemeProvider, createTheme } from '@mui/material';
+// import { useBeforeunload } from 'react-beforeunload';
 
 import {
   AboutPage,
@@ -10,6 +11,15 @@ import {
 } from '@src/components/pages/index.ts';
 
 import './index.css';
+
+const theme = createTheme({
+  typography: {
+    button: {
+      fontWeight: 600,
+      textTransform: 'none',
+    },
+  },
+});
 
 const router = createBrowserRouter([
   {
@@ -47,6 +57,10 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
-  useBeforeunload((e) => e.preventDefault());
-  return <RouterProvider router={router} />;
+  // useBeforeunload((e) => e.preventDefault());
+  return (
+    <ThemeProvider theme={theme}>
+      <RouterProvider router={router} />
+    </ThemeProvider>
+  );
 }
