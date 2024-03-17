@@ -1,14 +1,9 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+
 import { ThemeProvider, createTheme } from '@mui/material';
 // import { useBeforeunload } from 'react-beforeunload';
 
-import {
-  AboutPage,
-  AuthPage,
-  BusinessPage,
-  HomePage,
-  Layout,
-} from '@src/components/pages/index.ts';
+import { AboutPage, BusinessPage, HomePage, Layout } from '@src/components/pages/index.ts';
 
 import './index.css';
 
@@ -29,6 +24,7 @@ const router = createBrowserRouter([
         <HomePage />
       </Layout>
     ),
+    errorElement: <div>Something went wrong</div>,
   },
   {
     path: '/about',
@@ -37,6 +33,7 @@ const router = createBrowserRouter([
         <AboutPage />
       </Layout>
     ),
+    errorElement: <div>Something went wrong</div>,
   },
   {
     path: '/business',
@@ -45,14 +42,7 @@ const router = createBrowserRouter([
         <BusinessPage />
       </Layout>
     ),
-  },
-  {
-    path: '/auth',
-    element: (
-      <Layout>
-        <AuthPage />
-      </Layout>
-    ),
+    errorElement: <div>Something went wrong</div>,
   },
 ]);
 

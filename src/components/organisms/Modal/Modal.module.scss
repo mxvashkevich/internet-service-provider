@@ -1,0 +1,30 @@
+.modal {
+  @apply
+    fixed top-0 left-0
+    w-full h-full
+    bg-black bg-opacity-60
+    overflow-hidden overflow-y-auto
+    transition-opacity z-50
+}
+
+.modalWrapper {
+  @apply
+    absolute top-0 left-0
+    flex justify-center items-center
+    w-full min-h-full
+}
+
+.modalContent {
+  @apply
+    relative
+    m-5 w-full max-w-screen-md
+    rounded-3xl bg-slate-50
+    border-4 border-blue-800
+    p-5 transition-all
+}
+
+.closeButton {
+  @apply
+    absolute top-4 right-4
+    p-0 bg-transparent
+}
