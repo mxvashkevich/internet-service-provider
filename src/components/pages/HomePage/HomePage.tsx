@@ -4,7 +4,7 @@ import {
   HomeSection3,
   HomeSection4,
   HomeSection5,
-} from '@src/components/organisms/HomeOrganisms/index.ts';
+} from '@src/components/templates/Home';
 
 export default function HomePage() {
   return (

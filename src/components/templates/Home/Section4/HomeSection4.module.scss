@@ -1,0 +1,62 @@
+.section {
+  @apply
+    flex justify-center items-center 
+    w-full h-section4
+    bg-slate-50
+    text-white
+}
+
+.container {
+  @apply
+    w-4/5 h-4/5
+    rounded-full
+    relative
+    flex justify-center items-center
+    bg-[url('@src/assets/home-section-4/bg-img.png')]
+    bg-no-repeat bg-cover
+  
+}
+
+.el1 {
+  @apply 
+    h-72 w-32
+    absolute -left-36 top-0
+}
+
+.el2 {
+  @apply
+    h-4/6 w-44
+    absolute -right-40 bottom-0
+}
+
+.el3 {
+  @apply
+    size-24
+    absolute -left-4 top-0
+}
+
+.el4 {
+  @apply
+    h-56 w-44
+    absolute -left-32 bottom-0
+}
+
+.el5 {
+  @apply
+    size-40
+    absolute top-0 -right-36
+}
+
+.content {
+  @apply
+    w-4/5 h-4/5
+    flex flex-col gap-9 justify-center items-center;
+  
+    h2 {
+      @apply font-semibold text-5xl text-center
+    }
+
+    p {
+      @apply font-semibold text-2.5xl text-center
+    }
+}

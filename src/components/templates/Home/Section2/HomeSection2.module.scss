@@ -1,0 +1,12 @@
+.section {
+  @apply w-full h-section2 bg-white flex-col items-center justify-center;
+
+  .title {
+    @apply text-center text-5xl mt-20 mx-auto w-4/5;
+  }
+
+}
+
+.tariffsContainer {
+  @apply flex gap-8 my-24 justify-center items-center;
+}
