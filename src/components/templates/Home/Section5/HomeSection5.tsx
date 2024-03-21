@@ -1,9 +1,11 @@
+import BidComponent from '@src/components/organisms/BidComponent/BidComponent';
+
 import styles from './HomeSection5.module.scss';
 
 function HomeSection5() {
   return (
     <section className={styles.section}>
-      <h1>HomeSection5</h1>
+      <BidComponent />
     </section>
   );
 }

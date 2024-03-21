@@ -1,3 +1,36 @@
 .section {
-  @apply w-full h-section1 bg-slate-400 bg-[url("@src/assets/bg-1.jpg")] bg-cover
+  @apply
+    relative
+    w-full h-section1 bg-slate-400
+    bg-[url("@src/assets/bg-1.jpg")] bg-cover
+    flex flex-col justify-center items-center gap-32 backdrop-brightness-50;
+
+  h1 {
+    @apply
+      text-white font-bold text-6xl max-w-screen-md text-center
+  }
+}
+
+.finderWrapper {
+  @apply
+    w-3/4 h-28 rounded-md bg-white bg-opacity-40 flex justify-center items-center gap-5 px-8 ;
+
+  :nth-child(2) {
+    @apply px-10
+  }
+}
+
+.buttonSeeMore {
+  transition: all 0.3s ease;
+  @apply w-40 h-12 px-8 rounded-full border-white border-2 flex
+  justify-center items-center text-white text-nowrap font-semibold 
+  hover:border-blue-400 hover:text-lg
+}
+
+.buttonsWrapper {
+  @apply flex flex-col justify-center items-center gap-6
+}
+
+.arrowDown {
+  @apply mt-4 animate-bounce bg-transparent
 }

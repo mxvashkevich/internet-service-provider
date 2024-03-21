@@ -3,7 +3,7 @@
     flex justify-center items-center 
     w-full h-section4
     bg-slate-50
-    text-white
+    text-white;
 }
 
 .container {
@@ -12,9 +12,8 @@
     rounded-full
     relative
     flex justify-center items-center
-    bg-[url('@src/assets/home-section-4/bg-img.png')]
-    bg-no-repeat bg-cover
-  
+    bg-[url('@src/assets/h-s-4/bg-img.png')]
+    bg-no-repeat bg-cover;
 }
 
 .el1 {

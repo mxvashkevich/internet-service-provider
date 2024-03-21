@@ -1,31 +1,30 @@
 import { MouseEventHandler, ReactNode, useRef } from 'react';
 import { HighlightOffSharp as CloseIcon } from '@mui/icons-material';
 
-import { useStore } from '@src/store/store';
-
 import styles from './Modal.module.scss';
 import { CSSTransition } from 'react-transition-group';
 
 interface IModalProps {
   children: ReactNode;
+  isDisplay: boolean;
+  setDisplay: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function Modal({ children }: IModalProps) {
-  const { isModalDisplay, setModalDisplay } = useStore((store) => store);
-
+function Modal({ children, isDisplay, setDisplay }: IModalProps) {
+  // TODO скроллится фон, заменить на диалог
   const ref = useRef(null);
 
   const handleClickWrapper: MouseEventHandler<HTMLDivElement> = (e) => {
     const { target } = e;
     if (!(target instanceof HTMLElement) || !target.className.includes('modalWrapper')) return;
-    setModalDisplay(!isModalDisplay);
+    setDisplay(!isDisplay);
   };
 
   return (
     <>
       <CSSTransition
         nodeRef={ref}
-        in={isModalDisplay}
+        in={isDisplay}
         classNames='modal'
         timeout={300}
         unmountOnExit={true}
@@ -37,7 +36,7 @@ function Modal({ children }: IModalProps) {
                 <div className={styles.modalContent}>
                   <button
                     className={styles.closeButton}
-                    onClick={() => setModalDisplay(!isModalDisplay)}
+                    onClick={() => setDisplay((prev) => !prev)}
                   >
                     <CloseIcon fontSize='large' />
                   </button>

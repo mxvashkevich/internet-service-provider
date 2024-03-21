@@ -13,11 +13,11 @@ function HomeSection4() {
   return (
     <section className={styles.section}>
       <div className={styles.container}>
-        <img className={styles.el1} src='src/assets/home-section-4/el-1.png' />
-        <img className={styles.el2} src='src/assets/home-section-4/el-2.png' />
-        <img className={styles.el3} src='src/assets/home-section-4/el-3.png' />
-        <img className={styles.el4} src='src/assets/home-section-4/el-4.png' />
-        <img className={styles.el5} src='src/assets/home-section-4/el-5.png' />
+        <img className={styles.el1} src='src/assets/h-s-4/el-1.png' />
+        <img className={styles.el2} src='src/assets/h-s-4/el-2.png' />
+        <img className={styles.el3} src='src/assets/h-s-4/el-3.png' />
+        <img className={styles.el4} src='src/assets/h-s-4/el-4.png' />
+        <img className={styles.el5} src='src/assets/h-s-4/el-5.png' />
         <article className={styles.content}>
           <h2>Бизнес-интернет, созданный для пиковых нагрузок</h2>
           <p>

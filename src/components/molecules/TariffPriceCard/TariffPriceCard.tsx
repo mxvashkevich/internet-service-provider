@@ -33,14 +33,14 @@ function TariffPriceCard(props: ITariffPriceCardProps) {
 
   const heightContainer =
     speedValue && isBenefitsDisplay
-      ? '675px'
+      ? '645px'
       : speedValue && !isBenefitsDisplay
         ? '445px'
         : '550px';
 
   return (
     <div className={styles.container} style={{ height: heightContainer }}>
-      <img className={styles.image} src={`src/assets/home-section-2/head-${headColor}.png`} />
+      <img className={styles.image} src={`src/assets/h-s-2/head-${headColor}.png`} />
       <div className={styles.cardHeader}>
         <h1 className={styles.speed}> Мбит/с {speedValue}</h1>
         <p className={styles.price}>
@@ -49,26 +49,17 @@ function TariffPriceCard(props: ITariffPriceCardProps) {
           <span className={styles.desc}>/мес</span>
         </p>
       </div>
-      <div
-        className={styles.cardContent}
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr',
-          gridTemplateRows: '40px 240px 40px',
-          rowGap: 'calc(5% + 5px)',
-          padding: '0 20px',
-        }}
-      >
+      <div className={styles.cardContent}>
         <p>{description}</p>
         {isBenefitsDisplay && (
           <ul>
-            {benefits.map((b, i) => (
-              <li key={`${b[i]}-${b.length}`}>{b}</li>
+            {benefits.map((benefit) => (
+              <li key={`${benefit.length + 1}`}>{benefit}</li>
             ))}
           </ul>
         )}
         {hasToggle && (
-          <Link href='#' onClick={linkHandleClick}>
+          <Link href='#' onClick={linkHandleClick} className={styles.link}>
             {isBenefitsDisplay ? 'Скрыть детали плана' : 'Посмотреть подробности плана'}
           </Link>
         )}

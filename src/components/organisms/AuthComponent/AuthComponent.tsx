@@ -2,17 +2,17 @@ import { FormEventHandler, useState } from 'react';
 import { Box, Button, TextField, Typography } from '@mui/material';
 
 import styles from './AuthComponent.module.scss';
-import { useStore } from '@src/store/store';
 
-export default function AuthComponent() {
+interface IAuthComponentProps {
+  setDisplayModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function AuthComponent({ setDisplayModal }: IAuthComponentProps) {
   const [isAccountAvailable, setIsAccountAvailable] = useState(false);
-
-  const { isModalDisplay, setModalDisplay } = useStore((state) => state);
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    setModalDisplay(!isModalDisplay);
-    console.log(e);
+    setDisplayModal((prev) => !prev);
   };
 
   return (

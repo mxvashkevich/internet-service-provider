@@ -1,0 +1,12 @@
+.container {
+  @apply flex flex-col justify-center items-center gap-10 pb-10;
+
+  h1 {
+    @apply mt-20 text-4xl font-normal text-center
+  }
+
+  :nth-child(2) {
+    @apply max-w-screen-sm mr-6
+  }
+
+}

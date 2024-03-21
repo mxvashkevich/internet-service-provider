@@ -1,3 +1,23 @@
 .section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 3fr;
   @apply w-full h-section3 bg-slate-50
+  gap-4;
+  img {
+    @apply w-11/12 h-auto;
+  }
 }
+
+.headerGrid {
+  @apply col-span-2 flex justify-start items-center text-6xl font-light text-center pl-10;
+}
+
+.firstCol, .secondCol {
+  @apply bg-gray-50 flex flex-col items-center;
+
+  figcaption {
+    @apply text-3xl font-light px-8 mt-10
+  }
+}
+

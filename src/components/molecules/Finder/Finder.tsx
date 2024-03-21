@@ -1,11 +1,15 @@
-import { FocusEventHandler, FormEventHandler, useEffect, useState } from 'react';
+import { ComponentProps, FocusEventHandler, FormEventHandler, useEffect, useState } from 'react';
 import { Autocomplete, Box, TextField } from '@mui/material';
 
 import styles from './Finder.module.scss';
+import { useStore } from '@src/store/store';
 
-export default function Finder() {
-  const [adresses, setAdresses] = useState<Array<string>>(['']);
+type TArgs = Partial<ComponentProps<typeof Autocomplete>>;
+
+export default function Finder(...args: TArgs[]) {
+  // TODO застягивается на главной странице
   const [inputText, setInputText] = useState<string>('');
+  const { adresses, setAdresses, setFinderInput } = useStore((store) => store);
 
   const handleChange: FormEventHandler<HTMLInputElement> = (e) => {
     if (!e.target) return;
@@ -15,8 +19,8 @@ export default function Finder() {
   const handleBlur: FocusEventHandler<HTMLInputElement> = (e) => {
     if (!e.target) return;
     (e.target as HTMLInputElement).value
-      ? setInputText((e.target as HTMLInputElement).value)
-      : setAdresses([]);
+      ? setFinderInput((e.target as HTMLInputElement).value)
+      : setAdresses(['Ожидаю ввода адреса...']);
   };
 
   useEffect(() => {
@@ -40,6 +44,7 @@ export default function Finder() {
               (item: { value: string }) => item.value,
             );
             setAdresses(adresses);
+            setFinderInput(inputText);
           });
       }, 300);
       return () => clearTimeout(timerId);
@@ -49,10 +54,12 @@ export default function Finder() {
   return (
     <Box className={styles.containerAutocomplete}>
       <Autocomplete
+        {...args}
         options={adresses}
         onInput={handleChange}
         onBlur={handleBlur}
-        renderInput={(param) => <TextField {...param} label='Введите свой адрес' />}
+        renderInput={(param) => <TextField {...param} placeholder='Введите свой адрес' />}
+        sx={{ '& .MuiAutocomplete-popupIndicator': { display: 'none' } }} // отключение стрелки
       />
     </Box>
   );

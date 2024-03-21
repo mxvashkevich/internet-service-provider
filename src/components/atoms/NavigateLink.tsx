@@ -11,7 +11,7 @@ export default function NavigateLink({ linkTo, label, className }: INavigateLink
     <Link
       className={className}
       to={linkTo}
-      style={{ color: '#5f6367', textDecoration: 'none', fontSize: '20px' }}
+      style={{ color: '#5f6367', textDecoration: 'none', fontSize: '20px' }} // TODO : change
     >
       {label}
     </Link>

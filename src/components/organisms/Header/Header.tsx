@@ -1,19 +1,24 @@
+import { useState } from 'react';
 import { Button, Grid, Paper, Typography } from '@mui/material';
 
 import { useStore } from '@store/store.ts';
 
+import { AuthComponent } from '..';
+import Modal from '../Modal/Modal';
 import Navigator from '@components/organisms/Navigator/Navigator';
 // import NavigateLink from '@components/atoms/NavigateLink';
 
 import styles from './Header.module.scss';
-import Modal from '../Modal/Modal';
-import { AuthComponent } from '..';
+import MyButton from '@src/components/atoms/MyButton/MyButton';
+import FinderComponent from '../FinderComponent/FinderComponent';
 
 export default function Header() {
-  const { isAuth, isModalDisplay, setModalDisplay } = useStore((store) => store);
+  const { isAuth } = useStore((store) => store);
+  const [isShowModalAuth, setShowModalAuth] = useState<boolean>(false);
+  const [isShowModalAdress, setShowModalAdress] = useState<boolean>(false);
 
   const handleAuthClick = () => {
-    setModalDisplay(!isModalDisplay);
+    setShowModalAuth((prev) => !prev);
   };
 
   return (
@@ -34,9 +39,10 @@ export default function Header() {
           <Navigator />
         </Grid>
         <Grid xs={4} item className={styles.containerButtons}>
-          <Button variant='contained' color='primary' size='small' className={styles.buttonCheck}>
-            Проверить доступность
-          </Button>
+          <MyButton
+            text='Проверить доступность'
+            onClick={() => setShowModalAdress((prev) => !prev)}
+          />
           <Button
             variant='text'
             size='small'
@@ -45,8 +51,11 @@ export default function Header() {
           >
             {isAuth ? 'Выйти' : 'Войти'}
           </Button>
-          <Modal>
-            <AuthComponent />
+          <Modal isDisplay={isShowModalAuth} setDisplay={setShowModalAuth}>
+            <AuthComponent setDisplayModal={setShowModalAuth} />
+          </Modal>
+          <Modal isDisplay={isShowModalAdress} setDisplay={setShowModalAdress}>
+            <FinderComponent />
           </Modal>
         </Grid>
       </Grid>

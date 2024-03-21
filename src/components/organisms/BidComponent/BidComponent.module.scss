@@ -1,0 +1,20 @@
+.container {
+  @apply w-1/2 h-1/2 flex flex-col gap-8 items-center justify-center;
+
+  .textFields {
+    width: 480px;
+    @apply gap-4 flex flex-col items-center relative;
+    
+    .firstInput, .secondInput {
+      @apply w-full bg-white text-red-800
+    }
+  }
+
+  h1 {
+    @apply text-5xl text-center
+  }
+
+  p {
+    @apply text-gray-500 w-3/6 text-center
+  }
+}
