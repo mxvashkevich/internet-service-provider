@@ -6,7 +6,7 @@ function BusinessSection4() {
   return (
     <section className={styles.container}>
       <div className={styles.firstCell}>
-        <img src='src/assets/b-s-4/logo-wifi.png' />
+        <img src='src/assets/b-s-4/logo-wifi.png' className={styles.logo} />
         <h1>Интернет ускоряет работу вашего бизнеса.</h1>
         <p>
           Получите достаточную пропускную способность для подключения всех. А благодаря скорости

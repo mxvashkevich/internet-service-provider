@@ -1,4 +1,8 @@
-import { Link } from 'react-router-dom';
+import { Link, Location, useLocation } from 'react-router-dom';
+
+import { routesMapper } from '@src/components/constants';
+
+import styles from './NavigateLink.module.scss';
 
 type INavigateLinkProps = {
   linkTo: string;
@@ -7,11 +11,13 @@ type INavigateLinkProps = {
 };
 
 export default function NavigateLink({ linkTo, label, className }: INavigateLinkProps) {
+  const location: Location<'/' | '/business' | '/about'> = useLocation();
+  const isActive = routesMapper[location.pathname] === label;
+
   return (
     <Link
-      className={className}
+      className={`${className} ${isActive ? styles.activeLink : styles.inactiveLink}`}
       to={linkTo}
-      style={{ color: '#5f6367', textDecoration: 'none', fontSize: '20px' }} // TODO : change
     >
       {label}
     </Link>

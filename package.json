@@ -16,6 +16,7 @@
     "@mui/material": "^5.15.7",
     "@nanostores/react": "^0.7.1",
     "@types/react-transition-group": "^4.4.10",
+    "framer-motion": "^11.0.20",
     "nanostores": "^0.9.5",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
@@ -26,7 +27,6 @@
     "react-router-dom": "^6.22.0",
     "react-scroll": "^1.9.0",
     "react-transition-group": "^4.4.5",
-    "speedtest-net": "^1.6.2",
     "zustand": "^4.5.2"
   },
   "devDependencies": {

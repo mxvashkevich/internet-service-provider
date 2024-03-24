@@ -19,6 +19,10 @@
       }
   }
 
+  .logo {
+    @apply hover:animate-spin
+  }
+
   .secondCell {
     @apply flex justify-center items-center
   }

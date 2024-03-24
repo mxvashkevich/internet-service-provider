@@ -1,3 +1,5 @@
+import { RoutesMapper } from './types/types';
+
 export enum Colors {
   blue = 'blue',
   red = 'red',
@@ -148,4 +150,10 @@ export const smallBidDescriptions = {
     потребностей вашего предприятия.`,
   green: '',
   orange: '',
+};
+
+export const routesMapper: RoutesMapper = {
+  '/': 'Домашний',
+  '/business': 'Бизнес',
+  '/about': 'Обратная связь',
 };
