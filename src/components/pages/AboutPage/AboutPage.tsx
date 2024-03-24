@@ -1,7 +1,11 @@
+import { AboutSection1, AboutSection2, AboutSection3 } from '@src/components/templates/About';
+
 export default function AboutPage() {
   return (
-    <div>
-      <h1>About Page</h1>
-    </div>
+    <>
+      <AboutSection1 />
+      <AboutSection2 />
+      <AboutSection3 />
+    </>
   );
 }

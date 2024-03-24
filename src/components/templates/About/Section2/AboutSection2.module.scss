@@ -1,0 +1,14 @@
+.container {
+  @apply
+    w-full h-aSection2
+    my-16
+    ;
+
+    .btnContainer {
+      @apply
+        flex flex-col
+        justify-center items-center
+        gap-10
+        md:flex-row
+    }
+}

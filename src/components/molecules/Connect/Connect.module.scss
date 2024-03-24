@@ -1,0 +1,15 @@
+.container {
+  @apply w-2/5 h-52 flex justify-center items-center rounded-3xl border p-16 hover:shadow-xl;
+
+  figure {
+    @apply flex flex-row justify-start items-center gap-10;
+  }
+
+  figcaption {
+    @apply font-semibold text-xl;
+  }
+
+  .image {
+    @apply h-28 w-32 hover:-translate-y-2 hover:animate-pulse hover:cursor-pointer;
+  }
+}

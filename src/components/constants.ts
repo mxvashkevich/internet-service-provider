@@ -157,3 +157,8 @@ export const routesMapper: RoutesMapper = {
   '/business': 'Бизнес',
   '/about': 'Обратная связь',
 };
+
+export const connectDescs = {
+  chat: 'Чат-бот',
+  support: 'Позвоните нам по телефону или свяжитесь через электорную почту',
+};

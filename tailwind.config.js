@@ -19,6 +19,9 @@ export default {
         bSection3: '1400px',
         bSection4: '750px',
         bSection5: '750px',
+        aSection1: '500px',
+        aSection2: '350px',
+        aSection3: '800px',
       },
       colors: {
         'my-blue': '#4285f4',
