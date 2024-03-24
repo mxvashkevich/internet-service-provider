@@ -44,6 +44,15 @@ const router = createBrowserRouter([
     ),
     errorElement: <div>Something went wrong</div>,
   },
+  {
+    path: '/super-admin',
+    element: (
+      <Layout>
+        <BusinessPage />
+      </Layout>
+    ),
+    errorElement: <div>Something went wrong</div>,
+  },
 ]);
 
 export default function App() {
