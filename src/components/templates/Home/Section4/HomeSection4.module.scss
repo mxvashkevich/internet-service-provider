@@ -14,6 +14,15 @@
     flex justify-center items-center
     bg-[url('@src/assets/h-s-4/bg-img.png')]
     bg-no-repeat bg-cover;
+
+    .bgBlackOpacity::after {
+      content: "";
+      @apply
+        block absolute
+        top-0 left-0 w-full h-full
+        rounded-full
+        bg-black opacity-30
+    }
 }
 
 .el1 {
@@ -48,6 +57,7 @@
 
 .content {
   @apply
+    z-10
     w-4/5 h-4/5
     flex flex-col gap-9 justify-center items-center;
   

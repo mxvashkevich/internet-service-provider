@@ -43,6 +43,7 @@ function HomeSection4() {
             Узнать больше о бизнес-планах
           </Button>
         </article>
+        <div className={styles.bgBlackOpacity}></div>
       </div>
     </section>
   );

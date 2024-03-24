@@ -10,7 +10,7 @@ function HomeSection1() {
   const { fetchData } = useFetchStore((store) => store);
   const finderInput = useStore((store) => store.finderInput);
   const scrollToFn = () => {
-    scroll.scrollTo(900, {
+    scroll.scrollTo(935, {
       duration: 800,
       delay: 0,
       smooth: 'easeInOutQuart',

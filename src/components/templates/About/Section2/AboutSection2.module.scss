@@ -1,7 +1,7 @@
 .container {
   @apply
+    flex flex-row justify-center items-center
     w-full h-aSection2
-    my-16
     ;
 
     .btnContainer {
