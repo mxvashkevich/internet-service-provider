@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Grid, Paper, Typography } from '@mui/material';
+import { Grid, Paper, Typography } from '@mui/material';
 
 import { useStore } from '@store/store.ts';
 
@@ -41,14 +41,9 @@ export default function Header() {
             text='Проверить доступность'
             onClick={() => setShowModalAdress((prev) => !prev)}
           />
-          <Button
-            variant='text'
-            size='small'
-            className={styles.navigateLink}
-            onClick={handleAuthClick}
-          >
+          <button type='button' className={styles.navigateLink} onClick={handleAuthClick}>
             {isAuth ? 'Выйти' : 'Войти'}
-          </Button>
+          </button>
           <Modal isDisplay={isShowModalAuth} setDisplay={setShowModalAuth}>
             <AuthComponent setDisplayModal={setShowModalAuth} />
           </Modal>
