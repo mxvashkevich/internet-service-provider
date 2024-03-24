@@ -1,12 +1,19 @@
-import { ComponentProps, FocusEventHandler, FormEventHandler, useEffect, useState } from 'react';
-import { Autocomplete, Box, TextField } from '@mui/material';
+import { FocusEventHandler, FormEventHandler, useEffect, useState } from 'react';
+import { Autocomplete, Box, TextField, TextFieldVariants } from '@mui/material';
 
-import styles from './Finder.module.scss';
 import { useStore } from '@src/store/store';
 
-type TArgs = Partial<ComponentProps<typeof Autocomplete>>;
+import styles from './Finder.module.scss';
 
-export default function Finder(...args: TArgs[]) {
+interface IFinderProps {
+  placeholder?: string;
+  variant?: TextFieldVariants;
+}
+
+export default function Finder({
+  placeholder = 'Введите свой адрес',
+  variant = 'outlined',
+}: IFinderProps) {
   // TODO застягивается на главной странице
   const [inputText, setInputText] = useState<string>('');
   const { adresses, setAdresses, setFinderInput } = useStore((store) => store);
@@ -54,11 +61,13 @@ export default function Finder(...args: TArgs[]) {
   return (
     <Box className={styles.containerAutocomplete}>
       <Autocomplete
-        {...args}
+        // {...args}
         options={adresses}
         onInput={handleChange}
         onBlur={handleBlur}
-        renderInput={(param) => <TextField {...param} placeholder='Введите свой адрес' />}
+        renderInput={(param) => (
+          <TextField {...param} placeholder={placeholder} variant={variant} />
+        )}
         sx={{ '& .MuiAutocomplete-popupIndicator': { display: 'none' } }} // отключение стрелки
       />
     </Box>

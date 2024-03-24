@@ -1,13 +1,22 @@
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
+import { animateScroll as scroll } from 'react-scroll';
 
 import styles from './HomeSection4.module.scss';
 
 function HomeSection4() {
   const navigate = useNavigate();
 
+  const scrollToFn = () => {
+    scroll.scrollTo(0, {
+      duration: 0,
+      delay: 0,
+    });
+  };
+
   const buttonClickHandler = () => {
     navigate('/business');
+    scrollToFn();
   };
 
   return (

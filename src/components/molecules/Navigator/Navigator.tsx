@@ -1,4 +1,4 @@
-import NavigateLink from '@src/components/atoms/NavigateLink';
+import { NavigateLink } from '@src/components/atoms/index';
 
 export default function Navigator() {
   return (

@@ -1,11 +1,11 @@
 import { Typography } from '@mui/material';
 
-interface ITextWithDividerProps {
+interface ITextWithDividersProps {
   text1: string;
   text2: string;
 }
 
-function TextWithDivider({ text1, text2 }: ITextWithDividerProps) {
+function TextWithDividers({ text1, text2 }: ITextWithDividersProps) {
   return (
     <div style={{ display: 'flex', alignItems: 'center', marginTop: '20px' }}>
       <Typography variant='body1'>{text1}</Typography>
@@ -23,4 +23,4 @@ function TextWithDivider({ text1, text2 }: ITextWithDividerProps) {
   );
 }
 
-export default TextWithDivider;
+export default TextWithDividers;

@@ -11,16 +11,16 @@
   @apply
     absolute top-0 left-0
     flex justify-center items-center
-    w-full min-h-full
+    w-full h-full
 }
 
 .modalContent {
   @apply
     relative
-    m-5 w-full max-w-screen-md
+    m-5
+    w-full
     rounded-3xl bg-slate-50
-    border-4 border-blue-800
-    p-5 transition-all
+    transition-all
 }
 
 .closeButton {

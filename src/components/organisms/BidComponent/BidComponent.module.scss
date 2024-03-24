@@ -5,8 +5,8 @@
     width: 480px;
     @apply gap-4 flex flex-col items-center relative;
     
-    .firstInput, .secondInput {
-      @apply w-full bg-white text-red-800
+    .firstInput {
+      @apply w-full bg-white
     }
   }
 

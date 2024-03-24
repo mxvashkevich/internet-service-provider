@@ -1,25 +1,41 @@
 import { Button } from '@mui/material';
 
+import { Colors, colorStyles } from '@src/components/constants';
+import { TButton } from '@src/components/types/types';
+
 interface IButtonProps {
-  text: string;
-  onClick: () => void;
   type?: 'button' | 'submit' | 'reset';
+  variant?: TButton;
+  color?: keyof typeof Colors;
+  text: string;
+  textSize?: string;
+  onClick: () => void;
 }
 
-function MyButton({ text, type = 'button', onClick }: IButtonProps) {
+function MyButton({
+  color = 'blue',
+  text,
+  type = 'button',
+  variant = 'contained',
+  textSize = '18px',
+  onClick,
+}: IButtonProps) {
   return (
     <Button
       onClick={onClick}
-      variant='contained'
+      variant={variant}
       type={type}
-      color='primary'
       sx={{
+        backgroundColor: colorStyles[color],
         borderRadius: '27px',
         width: '280px',
         height: '50px',
-        fontSize: '18px',
+        fontSize: textSize,
         fontWeight: 500,
         textWrap: 'nowrap',
+        '&:hover': {
+          backgroundColor: colorStyles[`${color}Dark`],
+        },
       }}
     >
       {text}

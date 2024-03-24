@@ -1,7 +1,7 @@
-import Finder from '@src/components/molecules/Finder/Finder';
-import styles from './FinderComponent.module.scss';
-import MyButton from '@src/components/atoms/MyButton/MyButton';
+import { Finder, MyButton } from '@src/components/atoms/index';
 import { useFetchStore, useStore } from '@src/store/store';
+
+import styles from './FinderComponent.module.scss';
 
 function FinderComponent() {
   const { fetchData } = useFetchStore((store) => store);

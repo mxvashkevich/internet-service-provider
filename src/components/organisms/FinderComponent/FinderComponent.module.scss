@@ -10,3 +10,16 @@
   }
 
 }
+
+.finderWrapper {
+  @apply
+    w-3/4 h-28 rounded-md bg-white flex justify-center items-center gap-5 px-8;
+
+    .opacity {
+      @apply bg-opacity-40;
+    }
+
+  :nth-child(2) {
+    @apply px-10
+  }
+}

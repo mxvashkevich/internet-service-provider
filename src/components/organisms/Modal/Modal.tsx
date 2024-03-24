@@ -1,16 +1,26 @@
 import { MouseEventHandler, ReactNode, useRef } from 'react';
+import { CSSTransition } from 'react-transition-group';
 import { HighlightOffSharp as CloseIcon } from '@mui/icons-material';
 
 import styles from './Modal.module.scss';
-import { CSSTransition } from 'react-transition-group';
 
 interface IModalProps {
   children: ReactNode;
   isDisplay: boolean;
   setDisplay: React.Dispatch<React.SetStateAction<boolean>>;
+  isBigContent?: boolean;
+  isFullSizeContent?: boolean;
+  hasCloseBtn?: boolean;
 }
 
-function Modal({ children, isDisplay, setDisplay }: IModalProps) {
+function Modal({
+  children,
+  isDisplay,
+  setDisplay,
+  isBigContent,
+  isFullSizeContent,
+  hasCloseBtn = true,
+}: IModalProps) {
   // TODO скроллится фон, заменить на диалог
   const ref = useRef(null);
 
@@ -33,13 +43,17 @@ function Modal({ children, isDisplay, setDisplay }: IModalProps) {
           <>
             <div className={`modal modal-${state}`} ref={ref}>
               <div className={styles.modalWrapper} onClick={handleClickWrapper}>
-                <div className={styles.modalContent}>
-                  <button
-                    className={styles.closeButton}
-                    onClick={() => setDisplay((prev) => !prev)}
-                  >
-                    <CloseIcon fontSize='large' />
-                  </button>
+                <div
+                  className={`${styles.modalContent} ${isFullSizeContent ? 'p-5' : ''} ${isBigContent ? 'max-w-screen-xl h-4/5 w-5/6' : 'max-w-screen-md'}`}
+                >
+                  {hasCloseBtn && (
+                    <button
+                      className={styles.closeButton}
+                      onClick={() => setDisplay((prev) => !prev)}
+                    >
+                      <CloseIcon fontSize='large' />
+                    </button>
+                  )}
                   {children}
                 </div>
               </div>

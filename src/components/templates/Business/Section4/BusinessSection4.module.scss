@@ -1,0 +1,25 @@
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  @apply m-12 shadow-md rounded-xl h-bSection4;
+
+  .firstCell {
+    @apply
+      bg-slate-100
+      flex flex-col justify-center items-start
+      gap-10 p-14;
+
+      h1 {
+        @apply text-5xl
+      }
+
+      p {
+        @apply text-lg
+      }
+  }
+
+  .secondCell {
+    @apply flex justify-center items-center
+  }
+}

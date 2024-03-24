@@ -1,7 +1,19 @@
+import {
+  BusinessSection1,
+  BusinessSection2,
+  BusinessSection3,
+  BusinessSection4,
+  BusinessSection5,
+} from '@src/components/templates/Business';
+
 export default function BusinessPage() {
   return (
-    <div>
-      <h1>Business Page</h1>
-    </div>
+    <>
+      <BusinessSection1 />
+      <BusinessSection2 />
+      <BusinessSection3 />
+      <BusinessSection4 />
+      <BusinessSection5 />
+    </>
   );
 }

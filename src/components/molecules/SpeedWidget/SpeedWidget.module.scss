@@ -1,0 +1,15 @@
+.container {
+  @apply relative flex justify-center items-center;
+  
+  .overlayAbout, .overlayLogo {
+    position: absolute;
+    background-color: white;
+  }
+
+  .overlayAbout {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 7cqb;
+  }
+}

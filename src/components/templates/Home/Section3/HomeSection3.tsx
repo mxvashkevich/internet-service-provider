@@ -1,4 +1,4 @@
-import TextWithDivider from '@src/components/atoms/TextWithDividers/TextWithDividers';
+import { TextWithDividers } from '@src/components/atoms/index';
 import styles from './HomeSection3.module.scss';
 
 function HomeSection3() {
@@ -13,7 +13,7 @@ function HomeSection3() {
         <figcaption>
           “TNGinter помогает мне поддерживать связь с отальными моими колегами по команде
           практически без потери соединения”
-          <TextWithDivider text1='Олег' text2='Разработчик игр' />
+          <TextWithDividers text1='Олег' text2='Разработчик игр' />
         </figcaption>
       </figure>
 
@@ -22,7 +22,7 @@ function HomeSection3() {
         <figcaption>
           “Благодаря хорошему интернету я с легкостью общаюсь с клиентами на онлайн канале и тем
           самым обеспечиваю им качественное обслуживание”
-          <TextWithDivider text1='Ангелина' text2='Фитнес-тренер' />
+          <TextWithDividers text1='Ангелина' text2='Фитнес-тренер' />
         </figcaption>
       </figure>
     </section>

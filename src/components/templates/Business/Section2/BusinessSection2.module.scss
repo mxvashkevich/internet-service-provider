@@ -1,0 +1,32 @@
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 3fr 2fr;
+  @apply gap-y-14;
+  .firstCell {
+    @apply
+    mt-8
+      col-span-2
+      flex justify-center items-center
+      text-5xl text-center;
+      
+      h1 {
+        @apply w-3/5
+      }
+  }
+
+  .secondCell {
+    @apply
+      col-span-2
+      flex flex-row justify-center items-center
+      gap-16
+  }
+
+  .thirdCell {
+    @apply bg-slate-200 p-14 flex justify-center items-center text-center text-5xl;
+  }
+
+  .fourCell {
+    @apply bg-slate-200 p-14 text-xl flex justify-center items-center;
+  }
+}

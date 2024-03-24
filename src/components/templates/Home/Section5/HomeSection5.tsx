@@ -5,7 +5,7 @@ import styles from './HomeSection5.module.scss';
 function HomeSection5() {
   return (
     <section className={styles.section}>
-      <BidComponent />
+      <BidComponent title='Узнайте, когда TNGinter станет доступен по вашему адресу' />
     </section>
   );
 }

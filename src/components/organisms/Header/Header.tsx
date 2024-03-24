@@ -3,14 +3,12 @@ import { Button, Grid, Paper, Typography } from '@mui/material';
 
 import { useStore } from '@store/store.ts';
 
-import { AuthComponent } from '..';
-import Modal from '../Modal/Modal';
-import Navigator from '@components/organisms/Navigator/Navigator';
+import { Modal, AuthComponent, FinderComponent } from '@src/components/organisms/index';
+import { Navigator } from '@src/components/molecules/index';
+import { MyButton } from '@src/components/atoms/index';
 // import NavigateLink from '@components/atoms/NavigateLink';
 
 import styles from './Header.module.scss';
-import MyButton from '@src/components/atoms/MyButton/MyButton';
-import FinderComponent from '../FinderComponent/FinderComponent';
 
 export default function Header() {
   const { isAuth } = useStore((store) => store);

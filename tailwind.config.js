@@ -14,6 +14,18 @@ export default {
         section5: '750px',
         'tariff-card': '42.1875rem',
         footer: '115px',
+        bSection1: '750px',
+        bSection2: '1300px',
+        bSection3: '1400px',
+        bSection4: '750px',
+        bSection5: '750px',
+      },
+      colors: {
+        'my-blue': '#4285f4',
+        'my-red': '#ea4336',
+        'my-orange': '#f29900',
+        'my-green': '#178038',
+        'my-white': '#ffffff',
       },
     },
     backgroundSize: {

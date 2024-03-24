@@ -1,7 +1,10 @@
 .container {
   transition: height .5s ease;
-  @apply relative rounded-md border border-b-slate-400 flex-col gap-10 w-96 items-start
-  hover:shadow-xl;
+  @apply
+    hover:shadow-xl
+    relative
+    rounded-md border border-b-slate-400
+    flex-col gap-10 items-start;
 
   h1 {
     @apply text-white font-bold text-5xl pl-4 pt-4
@@ -14,9 +17,14 @@
   }
   .cardHeader {
     @apply flex justify-between h-56 mb-20;
-    .speed {
-      @apply flex self-start z-[1]
+
+    .speedValue {
+      @apply flex self-start z-[1] hover:cursor-pointer hover:animate-pulse
     }
+    .spaceValue {
+      @apply flex self-start z-[1] ml-6 mt-8 hover:cursor-pointer hover:animate-pulse
+    }
+    
     .price {
       @apply flex self-end z-[1] font-bold text-4xl;
       .ruble {

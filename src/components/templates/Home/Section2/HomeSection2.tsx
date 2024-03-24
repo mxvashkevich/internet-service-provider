@@ -1,4 +1,4 @@
-import TariffPriceCard from '@src/components/molecules/TariffPriceCard/TariffPriceCard';
+import TariffPriceCard from '@src/components/organisms/TariffPriceCard/TariffPriceCard';
 import { cardBenefits, cardDescriptions, sectionTitles } from '@components/constants';
 
 import styles from './HomeSection2.module.scss';
