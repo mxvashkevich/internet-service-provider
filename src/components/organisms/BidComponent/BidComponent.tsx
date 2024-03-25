@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 import { MyInput, Finder, MyButton } from '@src/components/atoms/index';
 
 import styles from './BidComponent.module.scss';
-import { useStore } from '@src/store/store';
+import { useStore } from '@src/store/localStore';
 import { useState } from 'react';
 
 interface IBidProps {

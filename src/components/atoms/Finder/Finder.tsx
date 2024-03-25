@@ -1,7 +1,7 @@
 import { FocusEventHandler, FormEventHandler, useEffect, useState } from 'react';
 import { Autocomplete, Box, TextField, TextFieldVariants } from '@mui/material';
 
-import { useStore } from '@src/store/store';
+import { useStore } from '@src/store/localStore';
 
 import styles from './Finder.module.scss';
 

@@ -1,5 +1,5 @@
 import { Finder, MyButton } from '@src/components/atoms/index';
-import { useFetchStore, useStore } from '@src/store/store';
+import { useFetchStore, useStore } from '@src/store/localStore';
 
 import styles from './FinderComponent.module.scss';
 

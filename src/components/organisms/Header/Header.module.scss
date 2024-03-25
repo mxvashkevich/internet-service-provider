@@ -1,9 +1,5 @@
-.image {
-  @apply w-14 h-14 self-center
-}
-
-.figure {
-  @apply flex
+.logoWrapper {
+  @apply flex justify-center items-center
 }
 
 .navigator {

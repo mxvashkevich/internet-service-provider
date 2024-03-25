@@ -1,12 +1,11 @@
 import { useState } from 'react';
-import { Grid, Paper, Typography } from '@mui/material';
+import { Grid, Paper } from '@mui/material';
 
-import { useStore } from '@store/store.ts';
+import { useStore } from '@src/store/localStore';
 
 import { Modal, AuthComponent, FinderComponent } from '@src/components/organisms/index';
 import { Navigator } from '@src/components/molecules/index';
-import { MyButton } from '@src/components/atoms/index';
-// import NavigateLink from '@components/atoms/NavigateLink';
+import { MyButton, MainLogo } from '@src/components/atoms/index';
 
 import styles from './Header.module.scss';
 
@@ -22,16 +21,8 @@ export default function Header() {
   return (
     <Paper elevation={4}>
       <Grid container className='p-2' component='header'>
-        <Grid xs={2} item component='figure' className={styles.figure}>
-          <img src='src/assets/logo.png' alt='logo image' className={styles.image} />
-          <Typography
-            component='figcaption'
-            className='self-center'
-            fontWeight={700}
-            fontSize='30px'
-          >
-            TNGinter
-          </Typography>
+        <Grid xs={2} item component='figure' className={styles.logoWrapper}>
+          <MainLogo />
         </Grid>
         <Grid xs={6} item component='nav' className={styles.navigator}>
           <Navigator />
