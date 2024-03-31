@@ -1,3 +1,7 @@
 .image {
   @apply w-14 h-14 self-center
 }
+
+.container {
+  @apply flex flex-row
+}

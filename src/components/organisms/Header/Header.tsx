@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Grid, Paper } from '@mui/material';
 
-import { useStore } from '@src/store/localStore';
+import { useFetchStore } from '@src/store/outerStore';
 
 import { Modal, AuthComponent, FinderComponent } from '@src/components/organisms/index';
 import { Navigator } from '@src/components/molecules/index';
@@ -10,13 +10,18 @@ import { MyButton, MainLogo } from '@src/components/atoms/index';
 import styles from './Header.module.scss';
 
 export default function Header() {
-  const { isAuth } = useStore((store) => store);
+  const { isAuth } = useFetchStore((store) => store);
   const [isShowModalAuth, setShowModalAuth] = useState<boolean>(false);
   const [isShowModalAdress, setShowModalAdress] = useState<boolean>(false);
 
   const handleAuthClick = () => {
     setShowModalAuth((prev) => !prev);
   };
+
+  useEffect(() => {
+    setShowModalAuth(false);
+    console.log(localStorage.getItem('accessToken'));
+  }, [isAuth]);
 
   return (
     <Paper elevation={4}>

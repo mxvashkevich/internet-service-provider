@@ -1,19 +1,28 @@
-import { ChangeEventHandler, useEffect, useState } from 'react';
+import { ChangeEventHandler, Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { TextField } from '@mui/material';
+
+import { TInputType } from '@src/components/types/types';
+import { mapInputTypeForError } from '@src/utils/mapper';
+import {
+  emailRegex,
+  loginRegex,
+  nameRegex,
+  passwordRegex,
+  phoneRegex,
+} from '@src/components/constants';
 
 import styles from './MyInput.module.scss';
 
-type TInputType = 'email' | 'login' | 'password' | 'name' | 'phone' | 'other';
-
-interface IInputProps {
+interface IInputProps<T> {
   type: TInputType;
   placeholder: string;
+  className?: string;
+  onDebouncedChange?: Dispatch<SetStateAction<T>>;
 }
 
-function MyInput({ type, placeholder }: IInputProps) {
+function MyInput<T>({ type, placeholder, className = '', onDebouncedChange }: IInputProps<T>) {
   const [value, setValue] = useState('');
   const [error, setError] = useState(false);
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     if (!e.target) return;
@@ -22,25 +31,42 @@ function MyInput({ type, placeholder }: IInputProps) {
     setValue(inputValue);
   };
 
-  const validateEmail = (inputValue: string) => {
-    !emailRegex.test(inputValue) ? setError(true) : setError(false);
+  const validateInput = (inputValue: string, regex: RegExp) => {
+    !regex.test(inputValue) ? setError(true) : setError(false);
   };
 
   useEffect(() => {
-    if (value) {
-      const timeoutId = setTimeout(() => {
-        switch (type) {
-          case 'email':
-            validateEmail(value);
-            break;
-        }
-      }, 400);
-      return () => clearTimeout(timeoutId);
-    }
+    if (!value) return;
+    const timeoutId = setTimeout(() => {
+      switch (type) {
+        case 'email':
+          validateInput(value, emailRegex);
+          break;
+        case 'phone':
+          validateInput(value, phoneRegex);
+          break;
+        case 'password':
+          validateInput(value, passwordRegex);
+          break;
+        case 'fullName':
+          validateInput(value, nameRegex);
+          break;
+        case 'login':
+          validateInput(value, loginRegex);
+          break;
+      }
+      if (onDebouncedChange) {
+        onDebouncedChange((prevState) => ({
+          ...prevState,
+          [type]: value,
+        }));
+      }
+    }, 800);
+    return () => clearTimeout(timeoutId);
   }, [value]);
   return (
     <TextField
-      className={styles.input}
+      className={className ? `${className}` : styles.input}
       sx={{
         '& .MuiFormHelperText-root': {
           margin: '0 auto',
@@ -49,9 +75,10 @@ function MyInput({ type, placeholder }: IInputProps) {
       placeholder={placeholder}
       value={value}
       onChange={handleChange}
+      type={type}
       onBlur={(e) => (!e.target.value ? setError(false) : null)}
       error={error}
-      helperText={error ? 'Введите корректный адрес электронной почты' : ''}
+      helperText={error ? mapInputTypeForError(type) : ''}
     />
   );
 }

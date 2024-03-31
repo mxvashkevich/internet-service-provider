@@ -5,10 +5,29 @@ const token = 'faketoken';
 export const firstApi = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
   headers: {
-    Authorization: `Bearer ${import.meta.env.VITE_JWT_TOKEN}`,
+    Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    'Content-Type': 'multipart/form-data',
   },
-  withCredentials: true,
 });
+
+export const secondApi = axios.create({
+  baseURL: import.meta.env.VITE_BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+    Accept: 'application/json',
+  },
+});
+
+// secondApi.interceptors.response.use(
+//   (res) => res,
+//   (err) => {
+//     if (axios.isAxiosError(err)) {
+//       if(err.status === 409) {
+
+//       }
+//     }
+//   }
+// )
 
 firstApi.interceptors.response.use(
   (res) => res,
@@ -16,7 +35,7 @@ firstApi.interceptors.response.use(
     if (axios.isAxiosError(err)) {
       if (err.status === 401 && token) {
         // const { data } =
-        axios.post('url/auth', {
+        axios.post(`${import.meta.env.VITE_BASE_URL}/auth`, {
           refreshToken: token,
         });
         // localStorage.setItem(data, 'token');

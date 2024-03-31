@@ -1,0 +1,17 @@
+.input {
+  @apply w-full h-full rounded-2xl shadow-sm pl-16 text-xl bg-slate-200
+}
+
+.inputError {
+  @apply border-2 border-red-500
+}
+
+.image {
+  top: 50%;
+  transform: translate(-50%, -50%);
+  @apply absolute left-8
+}
+
+.container {
+  @apply relative w-full h-16
+}

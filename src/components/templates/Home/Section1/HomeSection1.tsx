@@ -1,7 +1,8 @@
 import { animateScroll as scroll } from 'react-scroll';
 
 import { MyButton, Finder } from '@src/components/atoms/index';
-import { useFetchStore, useStore } from '@src/store/localStore';
+import { useStore } from '@src/store/localStore';
+import { useFetchStore } from '@src/store/outerStore';
 
 import styles from './HomeSection1.module.scss';
 

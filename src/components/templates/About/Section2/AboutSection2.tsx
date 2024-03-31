@@ -18,9 +18,9 @@ function AboutSection2() {
       <article className={styles.btnContainer}>
         <Connect
           desc={connectDescs.chat}
-          href='https://t.me/vshmx'
           imgAlter='logo-image-chat-bot'
           imgSource='src/assets/a-s-2/logo-1.png'
+          href='https://t.me/TNGinterTelegramBot'
         />
         <Connect
           desc={connectDescs.support}

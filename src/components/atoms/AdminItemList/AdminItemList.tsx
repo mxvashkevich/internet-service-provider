@@ -1,25 +1,39 @@
 import { Typography } from '@mui/material';
 
+import { TypeContract, TypePerson } from '@src/components/types/types';
+
 import styles from './AdminItemList.module.scss';
+import { useFetchStore } from '@src/store/outerStore';
 
 interface AdminItemListProps {
-  type: 'checked' | 'short' | 'long';
-  title: 'Договоры' | 'Полные заявки' | 'Краткие заявки';
-  divider: 'under' | 'above';
-  clientType: 'individual' | 'entity';
+  iconType: TypeContract;
+  title: 'Договоры' | 'Полные заявки' | 'Краткие заявки' | 'Админ';
+  divider: 'under' | 'above' | 'none';
+  typePerson: TypePerson;
+  rightIcon?: boolean;
 }
 
-function AdminItemList({ type, title, divider, clientType }: AdminItemListProps) {
-  
+function AdminItemList({ iconType, title, divider, typePerson, rightIcon }: AdminItemListProps) {
+  const { fetchContractData } = useFetchStore();
+
+  const handleClick = () => {
+    fetchContractData(iconType, typePerson);
+  };
+
+  const isAbove = divider === 'above';
+
+  const isUnder = divider === 'under';
+
   return (
-    <>
-      {divider === 'above' && <div className={styles.divider}></div>}
-      <div className={styles.container}>
-        <img src={`src/assets/admin/${type}-icon.png`} alt='icon' className={styles.image} />
-        <Typography>{title}</Typography>
+    <div className={styles.dividerWrapper}>
+      {isAbove && <div className={styles.divider}></div>}
+      <div className={styles.container} onClick={handleClick}>
+        {rightIcon && <Typography className={styles.title}>{title}</Typography>}
+        <img src={`src/assets/admin/${iconType}-icon.png`} alt='icon' className={styles.image} />
+        {!rightIcon && <Typography className={styles.title}>{title}</Typography>}
       </div>
-      {divider === 'under' && <div className={styles.divider}></div>}
-    </>
+      {isUnder && <div className={styles.divider}></div>}
+    </div>
   );
 }
 

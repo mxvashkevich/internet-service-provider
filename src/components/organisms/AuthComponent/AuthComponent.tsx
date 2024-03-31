@@ -1,19 +1,62 @@
-import { FormEventHandler, useState } from 'react';
-import { Box, Button, TextField, Typography } from '@mui/material';
+import { FormEventHandler, useEffect, useState } from 'react';
+import { Box, Button, Typography } from '@mui/material';
 
 import styles from './AuthComponent.module.scss';
+import { MyInput } from '@src/components/atoms';
+import { AuthFormLogin, AuthFormRegister } from '@src/components/types/types';
+import { useFetchStore } from '@src/store/outerStore';
 
 interface IAuthComponentProps {
   setDisplayModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function AuthComponent({ setDisplayModal }: IAuthComponentProps) {
-  const [isAccountAvailable, setIsAccountAvailable] = useState(false);
+  // TODO Formik yup validate
+  const { authLogin, authRegister, fetchError, clearFetchError, fetchSuccess, clearFetchSuccess } =
+    useFetchStore((store) => store);
+
+  const [isLogin, setLogin] = useState(true);
+  const [formError, setFormError] = useState(false);
+
+  const initialState = isLogin
+    ? {
+        login: '',
+        password: '',
+      }
+    : {
+        name: '',
+        phone: '',
+        login: '',
+        password: '',
+      };
+
+  const [authForm, setAuthForm] = useState<AuthFormRegister | AuthFormLogin>(() => initialState);
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    setDisplayModal((prev) => !prev);
+    if (Object.values(authForm).every((item) => item === '')) {
+      setFormError(true);
+    } else {
+      setFormError(false);
+      Object.keys(authForm).length < 4
+        ? authLogin(authForm)
+        : authRegister(authForm as AuthFormRegister);
+      if (fetchError !== '') {
+        setDisplayModal((prev) => !prev);
+        clearFetchError();
+        clearFetchSuccess();
+      }
+    }
+    if (fetchSuccess !== '') {
+      setDisplayModal((prev) => !prev);
+    }
   };
+
+  useEffect(() => {
+    clearFetchError();
+  }, [setDisplayModal]);
+
+  // если auth/me возвращает true - открываем роут super-admin
 
   return (
     <Box className={styles.container} component={'div'}>
@@ -29,44 +72,62 @@ export default function AuthComponent({ setDisplayModal }: IAuthComponentProps) 
         </Typography>
       </Box>
       <Typography variant='h4' fontWeight={500} fontSize={'32px'}>
-        {!isAccountAvailable ? 'Вход в систему' : 'Регистрация'}
+        {isLogin ? 'Вход в систему' : 'Регистрация'}
       </Typography>
-      <form onSubmit={handleSubmit} className={styles.form}>
-        {isAccountAvailable && (
+      {formError && (
+        <p style={{ border: '1px solid tomato', borderRadius: '5px', padding: '5px' }}>
+          Форма не заполнена, повторите еще раз
+        </p>
+      )}
+      {fetchError && (
+        <p style={{ border: '1px solid tomato', borderRadius: '5px', padding: '5px' }}>
+          {fetchError}
+        </p>
+      )}
+      <form onSubmit={handleSubmit} name='auth' className={styles.form}>
+        {!isLogin && (
           <>
-            <TextField
+            <MyInput
+              key={`${fetchError}1`}
+              onDebouncedChange={setAuthForm}
               className={styles.input}
-              id='outlined-basic'
-              label='Введите ФИО'
-              variant='outlined'
+              type='fullName'
+              placeholder='Введите ФИО'
             />
-            <TextField
+            <MyInput
+              key={`${fetchError}2`}
+              onDebouncedChange={setAuthForm}
               className={styles.input}
-              id='outlined-basic'
-              label='Введите номер телефона'
-              variant='outlined'
+              type='phone'
+              placeholder='+79001234455'
             />
           </>
         )}
-        <TextField
+        <MyInput
+          key={`${fetchError}3`}
+          onDebouncedChange={setAuthForm}
           className={styles.input}
-          id='outlined-basic'
-          label='Введите логин'
-          variant='outlined'
+          type='login'
+          placeholder='Введите логин'
         />
-        <TextField
+        <MyInput
+          key={`${fetchError}4`}
+          onDebouncedChange={setAuthForm}
           className={styles.input}
-          id='outlined-basic'
-          label='Введите пароль'
-          variant='outlined'
+          type='password'
+          placeholder='Введите пароль'
         />
         <Box className={styles.btns}>
           <Button
             variant='text'
             color='primary'
-            onClick={() => setIsAccountAvailable(!isAccountAvailable)}
+            onClick={() => {
+              clearFetchError();
+              setFormError(false);
+              setLogin((prev) => !prev);
+            }}
           >
-            {!isAccountAvailable ? 'Зарегистрироваться' : 'У меня есть аккаунт'}
+            {isLogin ? 'Зарегистрироваться' : 'У меня есть аккаунт'}
           </Button>
           <Button type='submit' variant='contained' color='primary'>
             Готово

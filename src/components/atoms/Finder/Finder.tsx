@@ -1,26 +1,57 @@
-import { FocusEventHandler, FormEventHandler, useEffect, useState } from 'react';
-import { Autocomplete, Box, TextField, TextFieldVariants } from '@mui/material';
+import {
+  Dispatch,
+  FocusEventHandler,
+  FormEventHandler,
+  SetStateAction,
+  SyntheticEvent,
+  useEffect,
+  useState,
+} from 'react';
+import {
+  Autocomplete,
+  AutocompleteChangeDetails,
+  AutocompleteChangeReason,
+  Box,
+  TextField,
+  TextFieldVariants,
+} from '@mui/material';
 
 import { useStore } from '@src/store/localStore';
 
 import styles from './Finder.module.scss';
 
-interface IFinderProps {
+interface IFinderProps<T> {
   placeholder?: string;
   variant?: TextFieldVariants;
+  onDeboucedChange?: Dispatch<SetStateAction<T>>;
 }
 
-export default function Finder({
+interface HandlerChange {
+  (
+    e: SyntheticEvent<Element, Event>,
+    value: string | null,
+    reason: AutocompleteChangeReason,
+    details?: AutocompleteChangeDetails<string> | undefined,
+  ): void;
+}
+
+export default function Finder<T>({
   placeholder = 'Введите свой адрес',
   variant = 'outlined',
-}: IFinderProps) {
+  onDeboucedChange,
+}: IFinderProps<T>) {
   // TODO застягивается на главной странице
   const [inputText, setInputText] = useState<string>('');
   const { adresses, setAdresses, setFinderInput } = useStore((store) => store);
 
-  const handleChange: FormEventHandler<HTMLInputElement> = (e) => {
+  const handleChangeInput: FormEventHandler<HTMLInputElement> = (e) => {
     if (!e.target) return;
     setInputText((e.target as HTMLInputElement).value);
+  };
+
+  const handleChange: HandlerChange = (e, value) => {
+    if (!e.target) return;
+    setInputText(value ?? '');
   };
 
   const handleBlur: FocusEventHandler<HTMLInputElement> = (e) => {
@@ -53,6 +84,9 @@ export default function Finder({
             setAdresses(adresses);
             setFinderInput(inputText);
           });
+        if (onDeboucedChange) {
+          onDeboucedChange((prev) => ({ ...prev, address: inputText }));
+        }
       }, 300);
       return () => clearTimeout(timerId);
     }
@@ -63,8 +97,9 @@ export default function Finder({
       <Autocomplete
         // {...args}
         options={adresses}
-        onInput={handleChange}
+        onInput={handleChangeInput}
         onBlur={handleBlur}
+        onChange={handleChange}
         renderInput={(param) => (
           <TextField {...param} placeholder={placeholder} variant={variant} />
         )}

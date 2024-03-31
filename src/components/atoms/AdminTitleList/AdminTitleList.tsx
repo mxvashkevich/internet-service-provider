@@ -9,7 +9,7 @@ interface AdminTitleListProps {
 function AdminTitleList({ title }: AdminTitleListProps) {
   return (
     <div className={styles.container}>
-      <Typography>{title}</Typography>
+      <Typography className={styles.title}>{title}</Typography>
       <div className={styles.divider}></div>
     </div>
   );

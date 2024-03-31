@@ -1,0 +1,19 @@
+.container {
+  @apply flex flex-col h-96 w-64 gap-1;
+
+  .calendar {
+    @apply flex justify-between p-3 mb-5 rounded-2xl border-2 border-gray-300 text-2xl;
+  }
+
+  .product {
+    @apply p-3 rounded-2xl border-2 border-gray-300 text-2xl;
+  }
+
+  .filter {
+    @apply p-3 rounded-2xl border-2 border-gray-300;
+  }
+
+  .flexBetween {
+    @apply justify-start;
+  }
+}

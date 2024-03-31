@@ -1,0 +1,26 @@
+.container {
+  display: grid;
+  grid-template-areas:
+  'first second second second .'
+  'first second second second third'
+  'first second second second third'
+  'first second second second third'
+  'first second second second .'
+  'first second second second .'
+  ;
+  @apply p-14;
+
+  .firstCol {
+    grid-area: first;
+  }
+
+  .secondCol {
+    grid-area: second;
+    @apply mt-5
+  }
+
+  .thirdCol {
+    grid-area: third;
+  }
+  
+}

@@ -3,7 +3,14 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material';
 // import { useBeforeunload } from 'react-beforeunload';
 
-import { AboutPage, BusinessPage, HomePage, Layout } from '@src/components/pages/index.ts';
+import {
+  AboutPage,
+  AdminPage,
+  BusinessPage,
+  HomePage,
+  Layout,
+} from '@src/components/pages/index.ts';
+import FallbackPage from './components/pages/FallbackPage/FallbackPage';
 
 import './index.css';
 
@@ -24,7 +31,7 @@ const router = createBrowserRouter([
         <HomePage />
       </Layout>
     ),
-    errorElement: <div>Something went wrong</div>,
+    errorElement: <FallbackPage />,
   },
   {
     path: '/about',
@@ -33,7 +40,7 @@ const router = createBrowserRouter([
         <AboutPage />
       </Layout>
     ),
-    errorElement: <div>Something went wrong</div>,
+    errorElement: <FallbackPage />,
   },
   {
     path: '/business',
@@ -42,21 +49,17 @@ const router = createBrowserRouter([
         <BusinessPage />
       </Layout>
     ),
-    errorElement: <div>Something went wrong</div>,
+    errorElement: <FallbackPage />,
   },
   {
     path: '/super-admin',
-    element: (
-      <Layout>
-        <BusinessPage />
-      </Layout>
-    ),
-    errorElement: <div>Something went wrong</div>,
+    element: <AdminPage />,
+    errorElement: <FallbackPage />,
   },
 ]);
 
 export default function App() {
-  // useBeforeunload((e) => e.preventDefault());
+  // useBeforeunload((e) => e.preventDefault())
   return (
     <ThemeProvider theme={theme}>
       <RouterProvider router={router} />

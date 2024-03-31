@@ -162,3 +162,16 @@ export const connectDescs = {
   chat: 'Чат-бот',
   support: 'Позвоните нам по телефону или свяжитесь через электорную почту',
 };
+
+export enum Endpoints {
+  tariff = 'tariff',
+  feed = 'feed',
+  contract = 'contract',
+  auth = 'auth',
+}
+
+export const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+export const phoneRegex = /^\+7\d{10}$/;
+export const passwordRegex = /^.{8,20}$/;
+export const nameRegex = /^[^\d]*$/;
+export const loginRegex = /^[a-zA-Z0-9]{5,20}$/;

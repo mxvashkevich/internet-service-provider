@@ -9,7 +9,7 @@ interface IButtonProps {
   color?: keyof typeof Colors;
   text: string;
   textSize?: string;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 function MyButton({

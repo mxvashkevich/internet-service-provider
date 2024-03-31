@@ -1,4 +1,4 @@
-import React, { FormEventHandler } from 'react';
+import { FormEventHandler, Fragment } from 'react';
 
 import { Button } from '@mui/material';
 import { Finder, MyButton, MyInput, TitledCheckbox } from '@src/components/atoms';
@@ -18,10 +18,10 @@ function SmallBid({ color, description }: ISmallBidProps) {
   };
 
   const descriptionWithBreaks = description.split('<br>').map((line, index) => (
-    <React.Fragment key={index}>
+    <Fragment key={index}>
       {line}
       {index !== description.length - 1 && <br />}
-    </React.Fragment>
+    </Fragment>
   ));
 
   return (
@@ -51,14 +51,7 @@ function SmallBid({ color, description }: ISmallBidProps) {
 
           <TitledCheckbox title='Я согласен на обработку персональных данных' />
 
-          <MyButton
-            type='submit'
-            text='Отправить'
-            color={color}
-            onClick={() => {
-              console.log('clicked');
-            }}
-          />
+          <MyButton type='submit' text='Отправить' color={color} />
         </form>
       </div>
     </div>

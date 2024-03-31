@@ -1,5 +1,7 @@
 export { default as TextWithDividers } from './TextWithDividers/TextWithDividers';
+export { default as AdminTitleList } from './AdminTitleList/AdminTitleList';
 export { default as TitledCheckbox } from './TitledCheckbox/TitledCheckbox';
+export { default as AdminItemList } from './AdminItemList/AdminItemList';
 export { default as NavigateLink } from './NavigateLink/NavigateLink';
 export { default as MainLogo } from './MainLogo/MainLogo';
 export { default as MyButton } from './MyButton/MyButton';
