@@ -14,19 +14,16 @@ function AdminList() {
           divider='under'
           title='Договоры'
           iconType='checked'
-          typePerson='individual'
         />
         <AdminItemList
           divider='under'
           title='Полные заявки'
           iconType='complete'
-          typePerson='individual'
         />
         <AdminItemList
           divider='none'
           title='Краткие заявки'
           iconType='short'
-          typePerson='individual'
         />
         <AdminTitleList title='Юридические лица' />
         <AdminItemList divider='under' title='Договоры' iconType='checked' typePerson='entity' />

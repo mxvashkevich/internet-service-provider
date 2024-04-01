@@ -22,11 +22,12 @@ type TFetchStore = {
   clearFetchError: () => void;
   clearFetchSuccess: () => void;
   setAuthStatus: (flag: boolean) => void;
-  fetchContractData: (
+  createContract: (
     contractForm: FullBidForm,
     typeContract: TypePerson,
     tariffId: string,
-  ) => void;
+  ) => Promise<unknown>;
+  getContracts: () => Promise<unknown>;
   getTariffs: () => Promise<unknown>;
   authLogin: (body: AuthFormLogin) => Promise<unknown>;
   authRegister: (body: AuthFormRegister) => Promise<unknown>;
@@ -49,7 +50,7 @@ export const useFetchStore: UseBoundStore<StoreApi<TFetchStore>> = create((set) 
     });
     set({ tariffs: data });
   },
-  fetchContractData: async (contractForm, typeContract, tariffId) => {
+  createContract: async (contractForm, typeContract, tariffId) => {
     try {
       if (typeContract === 'person') {
         const { data } = await firstApi.post('/contract/create', {
@@ -66,6 +67,16 @@ export const useFetchStore: UseBoundStore<StoreApi<TFetchStore>> = create((set) 
         } else {
           set({ fetchError: 'Такого пользователя не существует, зарегистрируйтесь!' });
         }
+      }
+    }
+  },
+  getContracts: async () => {
+    try {
+      const { data } = await secondApi.get('/contract/all');
+      set({ contract: data });
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        console.error('Error get contacts with status', error.status);
       }
     }
   },

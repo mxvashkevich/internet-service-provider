@@ -3,21 +3,18 @@ import { Typography } from '@mui/material';
 import { TypeContract, TypePerson } from '@src/components/types/types';
 
 import styles from './AdminItemList.module.scss';
-import { useFetchStore } from '@src/store/outerStore';
 
 interface AdminItemListProps {
   iconType: TypeContract;
   title: 'Договоры' | 'Полные заявки' | 'Краткие заявки' | 'Админ';
   divider: 'under' | 'above' | 'none';
-  typePerson: TypePerson;
+  typePerson?: TypePerson;
   rightIcon?: boolean;
 }
 
-function AdminItemList({ iconType, title, divider, typePerson, rightIcon }: AdminItemListProps) {
-  const { fetchContractData } = useFetchStore();
-
+function AdminItemList({ iconType, title, divider, rightIcon }: AdminItemListProps) {
   const handleClick = () => {
-    fetchContractData(iconType, typePerson);
+    console.log('click AdminItemList');
   };
 
   const isAbove = divider === 'above';

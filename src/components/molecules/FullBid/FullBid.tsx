@@ -26,7 +26,7 @@ interface IFullBidProps {
 
 function FullBid({ color, description, setModalDisplay, tariffId }: IFullBidProps) {
   // TODO переиспользовать
-  const { fetchContractData } = useFetchStore((store) => store);
+  const { createContract: fetchContractData } = useFetchStore((store) => store);
 
   const [trigger, setTrigger] = useState<boolean>(false);
   const [formErrors, setFormErrors] = useState<string>('');

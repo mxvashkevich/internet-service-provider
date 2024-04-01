@@ -1,10 +1,12 @@
-import { FormEventHandler, useEffect, useState } from 'react';
+import { FormEventHandler, MouseEventHandler, useEffect, useState } from 'react';
 import { Box, Button, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
-import styles from './AuthComponent.module.scss';
 import { MyInput } from '@src/components/atoms';
 import { AuthFormLogin, AuthFormRegister } from '@src/components/types/types';
 import { useFetchStore } from '@src/store/outerStore';
+
+import styles from './AuthComponent.module.scss';
 
 interface IAuthComponentProps {
   setDisplayModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -14,6 +16,7 @@ export default function AuthComponent({ setDisplayModal }: IAuthComponentProps) 
   // TODO Formik yup validate
   const { authLogin, authRegister, fetchError, clearFetchError, fetchSuccess, clearFetchSuccess } =
     useFetchStore((store) => store);
+  const navigate = useNavigate();
 
   const [isLogin, setLogin] = useState(true);
   const [formError, setFormError] = useState(false);
@@ -52,6 +55,12 @@ export default function AuthComponent({ setDisplayModal }: IAuthComponentProps) 
     }
   };
 
+  const imageClickHandler: MouseEventHandler<HTMLImageElement> = (e) => {
+    if (e.detail === 3) {
+      navigate('/super-admin');
+    }
+  };
+
   useEffect(() => {
     clearFetchError();
   }, [setDisplayModal]);
@@ -61,7 +70,12 @@ export default function AuthComponent({ setDisplayModal }: IAuthComponentProps) 
   return (
     <Box className={styles.container} component={'div'}>
       <Box className={styles.header}>
-        <img src='src/assets/logo.png' alt='logo image' className={styles.image} />
+        <img
+          src='src/assets/logo.png'
+          alt='logo image'
+          className={styles.image}
+          onClick={imageClickHandler}
+        />
         <Typography
           component='figcaption'
           className={styles.title}
