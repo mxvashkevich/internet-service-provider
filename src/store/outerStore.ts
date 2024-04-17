@@ -3,6 +3,7 @@ import {
   AuthFormLogin,
   AuthFormRegister,
   Contract,
+  ContractData,
   FullBidForm,
   TariffType,
   TariffWithPriceType,
@@ -14,7 +15,7 @@ import { StoreApi, UseBoundStore, create } from 'zustand';
 type TFetchStore = {
   isAuth: boolean;
   tariffs: TariffType[];
-  contract: Contract[];
+  contract: ContractData[];
   shortApplications: Contract[];
   completeApplications: Contract[];
   fetchError: string;

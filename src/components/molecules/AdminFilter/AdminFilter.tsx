@@ -11,15 +11,6 @@ function AdminFilter() {
   return (
     <LocalizationProvider dateAdapter={AdapterLuxon}>
       <aside className={styles.container}>
-        <div className={styles.calendar}>
-          <Typography>Дата</Typography>
-          <img
-            src={`src/assets/admin/calendar-icon.png`}
-            alt='icon-calendar'
-            className={styles.image}
-            onClick={() => {}}
-          />
-        </div>
         <DatePicker
           label={'Дата'}
           format='dd-MM-yyyy'
@@ -30,7 +21,7 @@ function AdminFilter() {
           }}
         />
         <div className={styles.product}>
-          <Typography>Дата</Typography>
+          <Typography>Продукт</Typography>
         </div>
         <div className={styles.filter}>
           <TitledCheckbox className={styles.flexBetween} title='Домашний 200' />

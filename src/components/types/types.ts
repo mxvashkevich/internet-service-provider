@@ -55,3 +55,20 @@ export interface TariffType {
 export interface TariffWithPriceType extends TariffType {
   price?: number;
 }
+
+export interface ContractData {
+  contactId: string;
+  created_at: string;
+  data: {
+    contactDataId: string;
+    data: {
+      address: string;
+      email: string;
+      files: string[]; // массив строк с URL файлов
+      isAcceptPolicy: boolean;
+    };
+  };
+  isFinished: boolean;
+  passportScan: string[]; // массив объектов, описывающих сканы паспорта (пустой в вашем случае)
+  type: string;
+}

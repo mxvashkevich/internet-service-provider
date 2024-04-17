@@ -10,9 +10,10 @@ interface AdminItemListProps {
   divider: 'under' | 'above' | 'none';
   typePerson?: TypePerson;
   rightIcon?: boolean;
+  onClick?: () => void;
 }
 
-function AdminItemList({ iconType, title, divider, rightIcon }: AdminItemListProps) {
+function AdminItemList({ iconType, title, divider, rightIcon, onClick }: AdminItemListProps) {
   const handleClick = () => {
     console.log('click AdminItemList');
   };
@@ -26,7 +27,16 @@ function AdminItemList({ iconType, title, divider, rightIcon }: AdminItemListPro
       {isAbove && <div className={styles.divider}></div>}
       <div className={styles.container} onClick={handleClick}>
         {rightIcon && <Typography className={styles.title}>{title}</Typography>}
-        <img src={`src/assets/admin/${iconType}-icon.png`} alt='icon' className={styles.image} />
+        {onClick ? (
+          <img
+            src={`src/assets/admin/${iconType}-icon.png`}
+            alt='icon'
+            className={`${styles.image} ${styles.hover}`}
+            onClick={onClick}
+          />
+        ) : (
+          <img src={`src/assets/admin/${iconType}-icon.png`} alt='icon' className={styles.image} />
+        )}
         {!rightIcon && <Typography className={styles.title}>{title}</Typography>}
       </div>
       {isUnder && <div className={styles.divider}></div>}

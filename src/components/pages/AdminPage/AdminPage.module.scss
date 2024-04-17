@@ -1,12 +1,12 @@
 .container {
   display: grid;
   grid-template-areas:
-  'first second second second .'
-  'first second second second third'
-  'first second second second third'
-  'first second second second third'
-  'first second second second .'
-  'first second second second .'
+    'first second second second .'
+    'first second second second third'
+    'first second second second third'
+    'first second second second third'
+    'first second second second .'
+    'first second second second .'
   ;
   @apply p-14;
 
@@ -16,7 +16,7 @@
 
   .secondCol {
     grid-area: second;
-    @apply mt-5
+    @apply flex flex-col gap-9 mt-5;
   }
 
   .thirdCol {

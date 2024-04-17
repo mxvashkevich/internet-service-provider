@@ -1,12 +1,14 @@
-import { AdminList } from '@src/components/molecules/index';
+import { useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+
+import { AdminList } from '@src/components/molecules/index';
+import { useFetchStore } from '@src/store/outerStore';
 
 import AdminInput from '@src/components/atoms/AdminInput/AdminInput';
 import AdminFilter from '@src/components/molecules/AdminFilter/AdminFilter';
+import AdminMainContent from '@src/components/organisms/AdminMainContent/AdminMainContent';
 
 import styles from './AdminPage.module.scss';
-import { useEffect } from 'react';
-import { useFetchStore } from '@src/store/outerStore';
 
 function AdminPage() {
   // TODO если есть токен - показываем страницу
@@ -16,6 +18,10 @@ function AdminPage() {
   useEffect(() => {
     getContracts();
   }, []);
+
+  useEffect(() => {
+    console.log('contract>>>', contract);
+  }, [contract]);
 
   return (
     <AnimatePresence>
@@ -31,6 +37,7 @@ function AdminPage() {
           </aside>
           <aside className={styles.secondCol}>
             <AdminInput />
+            <AdminMainContent contracts={contract} />
           </aside>
           <aside className={styles.thirdCol}>
             <AdminFilter />
