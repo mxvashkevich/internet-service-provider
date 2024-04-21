@@ -72,3 +72,12 @@ export interface ContractData {
   passportScan: string[]; // массив объектов, описывающих сканы паспорта (пустой в вашем случае)
   type: string;
 }
+
+export type TAuthMeResponse = {
+  userId: string;
+  isAdmin: boolean;
+};
+
+export type TAuthLoginResponse = {
+  accessToken: string;
+};

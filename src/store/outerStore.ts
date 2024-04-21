@@ -1,7 +1,5 @@
 import { firstApi, secondApi } from '@src/api/api';
 import {
-  AuthFormLogin,
-  AuthFormRegister,
   Contract,
   ContractData,
   FullBidForm,
@@ -13,7 +11,6 @@ import axios from 'axios';
 import { StoreApi, UseBoundStore, create } from 'zustand';
 
 type TFetchStore = {
-  isAuth: boolean;
   tariffs: TariffType[];
   contract: ContractData[];
   shortApplications: Contract[];
@@ -22,7 +19,6 @@ type TFetchStore = {
   fetchSuccess: string;
   clearFetchError: () => void;
   clearFetchSuccess: () => void;
-  setAuthStatus: (flag: boolean) => void;
   createContract: (
     contractForm: FullBidForm,
     typeContract: TypePerson,
@@ -30,12 +26,9 @@ type TFetchStore = {
   ) => Promise<unknown>;
   getContracts: () => Promise<unknown>;
   getTariffs: () => Promise<unknown>;
-  authLogin: (body: AuthFormLogin) => Promise<unknown>;
-  authRegister: (body: AuthFormRegister) => Promise<unknown>;
 };
 
 export const useFetchStore: UseBoundStore<StoreApi<TFetchStore>> = create((set) => ({
-  isAuth: Boolean(localStorage.getItem('accessToken')),
   tariffs: [],
   contract: [],
   shortApplications: [],
@@ -81,35 +74,4 @@ export const useFetchStore: UseBoundStore<StoreApi<TFetchStore>> = create((set) 
       }
     }
   },
-  authLogin: async (body: AuthFormLogin) => {
-    // TODO описать запросы на логин, регу и me
-    try {
-      const { data } = await secondApi.post('/auth/login', body);
-      set({ fetchSuccess: 'Пользователь успешно заругистрирован!' });
-      set(() => ({ isAuth: true }));
-      localStorage.setItem('accessToken', data.accessToken);
-      console.log(data.accessToken);
-    } catch (error: unknown) {
-      if (axios.isAxiosError(error)) {
-        if (error.response && error.response.status === 401) {
-          set({ fetchError: 'Введите корректный пароль!' });
-        } else {
-          set({ fetchError: 'Такого пользователя не существует, зарегистрируйтесь!' });
-        }
-      }
-    }
-  },
-  authRegister: async (body: AuthFormRegister) => {
-    try {
-      const { data } = await secondApi.post('auth/register', body);
-      console.log(data.accessToken);
-    } catch (error: unknown) {
-      if (axios.isAxiosError(error)) {
-        if (error.response && error.response.status === 409) {
-          set({ fetchError: 'Такой пользователь уже есть!' });
-        }
-      }
-    }
-  },
-  setAuthStatus: (flag) => set(() => ({ isAuth: flag })),
 }));

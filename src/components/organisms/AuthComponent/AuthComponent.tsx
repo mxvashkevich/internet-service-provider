@@ -1,12 +1,12 @@
-import { FormEventHandler, MouseEventHandler, useEffect, useState } from 'react';
+import { FormEventHandler, useEffect, useState } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 import { MyInput } from '@src/components/atoms';
 import { AuthFormLogin, AuthFormRegister } from '@src/components/types/types';
-import { useFetchStore } from '@src/store/outerStore';
 
 import styles from './AuthComponent.module.scss';
+import { useAuthStore } from '@src/store/authStore';
 
 interface IAuthComponentProps {
   setDisplayModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -14,8 +14,16 @@ interface IAuthComponentProps {
 
 export default function AuthComponent({ setDisplayModal }: IAuthComponentProps) {
   // TODO Formik yup validate
-  const { authLogin, authRegister, fetchError, clearFetchError, fetchSuccess, clearFetchSuccess } =
-    useFetchStore((store) => store);
+  const {
+    isAdmin,
+    authLogin,
+    authRegister,
+    fetchError,
+    clearFetchError,
+    fetchSuccess,
+    clearFetchSuccess,
+  } = useAuthStore((store) => store);
+
   const navigate = useNavigate();
 
   const [isLogin, setLogin] = useState(true);
@@ -55,27 +63,19 @@ export default function AuthComponent({ setDisplayModal }: IAuthComponentProps) 
     }
   };
 
-  const imageClickHandler: MouseEventHandler<HTMLImageElement> = (e) => {
-    if (e.detail === 3) {
-      navigate('/super-admin');
-    }
-  };
-
   useEffect(() => {
     clearFetchError();
   }, [setDisplayModal]);
 
-  // если auth/me возвращает true - открываем роут super-admin
+  useEffect(() => {
+    if (!isAdmin) return;
+    navigate('/super-admin');
+  }, [isAdmin]);
 
   return (
     <Box className={styles.container} component={'div'}>
       <Box className={styles.header}>
-        <img
-          src='src/assets/logo.png'
-          alt='logo image'
-          className={styles.image}
-          onClick={imageClickHandler}
-        />
+        <img src='src/assets/logo.png' alt='logo image' className={styles.image} />
         <Typography
           component='figcaption'
           className={styles.title}

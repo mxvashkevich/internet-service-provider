@@ -40,7 +40,6 @@ export default function Finder<T>({
   variant = 'outlined',
   onDeboucedChange,
 }: IFinderProps<T>) {
-  // TODO застягивается на главной странице
   const [inputText, setInputText] = useState<string>('');
   const { adresses, setAdresses, setFinderInput } = useStore((store) => store);
 
@@ -95,7 +94,6 @@ export default function Finder<T>({
   return (
     <Box className={styles.containerAutocomplete}>
       <Autocomplete
-        // {...args}
         options={adresses}
         onInput={handleChangeInput}
         onBlur={handleBlur}

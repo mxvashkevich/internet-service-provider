@@ -11,8 +11,6 @@ import AdminMainContent from '@src/components/organisms/AdminMainContent/AdminMa
 import styles from './AdminPage.module.scss';
 
 function AdminPage() {
-  // TODO если есть токен - показываем страницу
-  // иначе тех страница
   const { contract, getContracts } = useFetchStore((store) => store);
 
   useEffect(() => {
