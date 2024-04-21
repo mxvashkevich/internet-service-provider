@@ -10,7 +10,7 @@ import { MyButton, MainLogo } from '@src/components/atoms/index';
 import styles from './Header.module.scss';
 
 export default function Header() {
-  const { isAuth, setAuthStatus } = useAuthStore((store) => store);
+  const { isAuth, setAuthStatus, setAdminStatus } = useAuthStore((store) => store);
   const [isShowModalAuth, setShowModalAuth] = useState<boolean>(false);
   const [isShowModalAdress, setShowModalAdress] = useState<boolean>(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -23,6 +23,7 @@ export default function Header() {
     ) {
       localStorage.removeItem('accessToken');
       setAuthStatus(false);
+      setAdminStatus(false);
     }
     if (buttonRef.current.textContent === 'Войти') {
       setShowModalAuth((prev) => !prev);

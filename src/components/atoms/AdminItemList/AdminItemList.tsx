@@ -8,12 +8,20 @@ interface AdminItemListProps {
   iconType: TypeContract;
   title: 'Договоры' | 'Полные заявки' | 'Краткие заявки' | 'Админ';
   divider: 'under' | 'above' | 'none';
+  justifyBetween?: boolean;
   typePerson?: TypePerson;
   rightIcon?: boolean;
   onClick?: () => void;
 }
 
-function AdminItemList({ iconType, title, divider, rightIcon, onClick }: AdminItemListProps) {
+function AdminItemList({
+  iconType,
+  title,
+  divider,
+  rightIcon,
+  onClick,
+  justifyBetween,
+}: AdminItemListProps) {
   const handleClick = () => {
     console.log('click AdminItemList');
   };
@@ -25,7 +33,10 @@ function AdminItemList({ iconType, title, divider, rightIcon, onClick }: AdminIt
   return (
     <div className={styles.dividerWrapper}>
       {isAbove && <div className={styles.divider}></div>}
-      <div className={styles.container} onClick={handleClick}>
+      <div
+        className={`${styles.container} ${justifyBetween ? styles.justifyBetween : styles.justifyStart}`}
+        onClick={handleClick}
+      >
         {rightIcon && <Typography className={styles.title}>{title}</Typography>}
         {onClick ? (
           <img

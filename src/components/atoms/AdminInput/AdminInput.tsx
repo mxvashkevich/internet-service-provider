@@ -1,16 +1,17 @@
 import { ChangeEventHandler, useState } from 'react';
+import { useStore } from '@src/store/localStore';
 
 import styles from './AdminInput.module.scss';
 
 function AdminInput() {
   const [isError, setError] = useState<boolean>(false);
-  const [text, setText] = useState<string>('');
+  const { adminInputText, setAdminInputText } = useStore((state) => state);
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     if (!/\d/.test(e.target.value)) {
       setError(true);
     }
-    setText(e.target.value);
+    setAdminInputText(e.target.value);
   };
   return (
     <div className={styles.container}>
@@ -19,7 +20,7 @@ function AdminInput() {
         type='text'
         placeholder='Поиск'
         className={`${styles.input} ${isError ? styles.inputError : ''}`}
-        value={text}
+        value={adminInputText}
         onChange={handleChange}
       />
     </div>

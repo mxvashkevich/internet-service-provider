@@ -7,13 +7,13 @@ function AdminList() {
   const navigate = useNavigate();
 
   const handleExit = () => {
-    navigate('/super-admin');
+    navigate('/');
   };
 
   return (
     <>
       <div className={styles.logoWrapper}>
-        <MainLogo />
+        <MainLogo grow />
       </div>
       <div className={styles.adminList}>
         <AdminTitleList title='Физические лица' />
@@ -28,6 +28,7 @@ function AdminList() {
           title='Админ'
           iconType='exit'
           rightIcon
+          justifyBetween
           onClick={handleExit}
         />
       </div>

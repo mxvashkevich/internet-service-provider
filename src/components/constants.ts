@@ -156,6 +156,7 @@ export const routesMapper: RoutesMapper = {
   '/': 'Домашний',
   '/business': 'Бизнес',
   '/about': 'Обратная связь',
+  '/super-admin': 'Админ панель',
 };
 
 export const connectDescs = {

@@ -1,5 +1,8 @@
 .container {
   display: grid;
+  height: 100vh;
+  width: 100vw;
+  column-gap: 15px;
   grid-template-areas:
     'first second second second .'
     'first second second second third'
@@ -8,10 +11,11 @@
     'first second second second .'
     'first second second second .'
   ;
-  @apply p-14;
+  @apply p-10;
 
   .firstCol {
     grid-area: first;
+    height: 90vh;
   }
 
   .secondCol {

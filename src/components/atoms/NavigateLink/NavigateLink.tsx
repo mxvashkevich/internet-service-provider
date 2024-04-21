@@ -11,12 +11,12 @@ type INavigateLinkProps = {
 };
 
 export default function NavigateLink({ linkTo, label, className }: INavigateLinkProps) {
-  const location: Location<'/' | '/business' | '/about'> = useLocation();
+  const location: Location<'/' | '/business' | '/about' | '/super-admin'> = useLocation();
   const isActive = routesMapper[location.pathname] === label;
 
   return (
     <Link
-      className={`${className} ${isActive ? styles.activeLink : styles.inactiveLink}`}
+      className={`${className || ''} ${isActive ? styles.activeLink : styles.inactiveLink}`}
       to={linkTo}
     >
       {label}

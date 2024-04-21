@@ -8,6 +8,7 @@ interface AdminMainContentProps {
 }
 
 function AdminMainContent({ contracts }: AdminMainContentProps) {
+  console.log(contracts)
   return (
     <>
       {contracts.map((c, i) => (

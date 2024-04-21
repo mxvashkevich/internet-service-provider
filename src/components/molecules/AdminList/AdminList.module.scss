@@ -1,7 +1,14 @@
 .logoWrapper {
-  @apply mb-8
+  @apply mt-8
 }
 
 .adminList {
-  @apply flex flex-col gap-2 w-4/5;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 3fr;
+  height: 90%;
+}
+
+.adminList:last-child {
+  align-items: end;
+  justify-content: space-around;
 }
