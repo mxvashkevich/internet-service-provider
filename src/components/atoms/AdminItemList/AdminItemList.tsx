@@ -4,6 +4,8 @@ import { TypeContract, TypePerson } from '@src/components/types/types';
 
 import styles from './AdminItemList.module.scss';
 
+import useWidthSizeName from '@src/hooks/useWindowSize';
+
 interface AdminItemListProps {
   iconType: TypeContract;
   title: 'Договоры' | 'Полные заявки' | 'Краткие заявки' | 'Админ';
@@ -22,9 +24,11 @@ function AdminItemList({
   onClick,
   justifyBetween,
 }: AdminItemListProps) {
-  const handleClick = () => {
-    console.log('click AdminItemList');
-  };
+  const sizeWidthName = useWidthSizeName();
+
+  const handleClick = () => {};
+
+  const isSmall = sizeWidthName === 'small';
 
   const isAbove = divider === 'above';
 
@@ -37,7 +41,7 @@ function AdminItemList({
         className={`${styles.container} ${justifyBetween ? styles.justifyBetween : styles.justifyStart}`}
         onClick={handleClick}
       >
-        {rightIcon && <Typography className={styles.title}>{title}</Typography>}
+        {rightIcon && !isSmall && <Typography className={styles.title}>{title}</Typography>}
         {onClick ? (
           <img
             src={`src/assets/admin/${iconType}-icon.png`}
@@ -48,7 +52,7 @@ function AdminItemList({
         ) : (
           <img src={`src/assets/admin/${iconType}-icon.png`} alt='icon' className={styles.image} />
         )}
-        {!rightIcon && <Typography className={styles.title}>{title}</Typography>}
+        {!rightIcon && !isSmall && <Typography className={styles.title}>{title}</Typography>}
       </div>
       {isUnder && <div className={styles.divider}></div>}
     </div>

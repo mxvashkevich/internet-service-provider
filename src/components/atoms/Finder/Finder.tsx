@@ -23,6 +23,7 @@ import styles from './Finder.module.scss';
 interface IFinderProps<T> {
   placeholder?: string;
   variant?: TextFieldVariants;
+  name: string;
   onDeboucedChange?: Dispatch<SetStateAction<T>>;
 }
 
@@ -39,6 +40,7 @@ export default function Finder<T>({
   placeholder = 'Введите свой адрес',
   variant = 'outlined',
   onDeboucedChange,
+  name,
 }: IFinderProps<T>) {
   const [inputText, setInputText] = useState<string>('');
   const { adresses, setAdresses, setFinderInput } = useStore((store) => store);
@@ -99,7 +101,7 @@ export default function Finder<T>({
         onBlur={handleBlur}
         onChange={handleChange}
         renderInput={(param) => (
-          <TextField {...param} placeholder={placeholder} variant={variant} />
+          <TextField {...param} name={name} placeholder={placeholder} variant={variant} />
         )}
         sx={{ '& .MuiAutocomplete-popupIndicator': { display: 'none' } }} // отключение стрелки
       />

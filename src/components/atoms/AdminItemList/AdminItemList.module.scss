@@ -1,14 +1,60 @@
+@keyframes sizeSmallerDivider {
+  from {
+    width: 240px;
+  }
+
+  to {
+    width: 50px;
+  }
+}
+
+@keyframes sizeGrowingDivider {
+  from {
+    width: 50px;
+  }
+
+  to {
+    width: 240px;
+  }
+}
+
+@media (max-width: 992px) {
+  .container {
+    width: 50px;
+  }
+  .divider {
+    animation: sizeSmallerDivider 1s forwards ;
+    width: 50px;
+  }
+  .image {
+    @apply hover:size-10
+  }
+  .title {
+    display: none;
+  }
+}
+
+@media (min-width: 992.1px) {
+  .container {
+    width: 240px;
+  }
+  .divider {
+    animation: sizeGrowingDivider 1s forwards;
+    width: 240px;
+  }
+  .image {
+    @apply size-9
+  }
+}
+
 .container {
   @apply
-  w-60 h-16 bg-white
+  h-16 bg-white
   flex flex-row items-center gap-4
   hover:cursor-pointer
   text-slate-500
   hover:text-slate-700
   ;
-  .image {
-    @apply size-9
-  }
   .title {
     @apply text-xl font-normal 
   }
@@ -19,11 +65,7 @@
 }
 
 .divider {
-  @apply h-0.5 w-60 bg-slate-300 rounded-md
-}
-
-.dividerWrapper {
-  @apply flex flex-col
+  @apply h-0.5 bg-slate-300 rounded-md
 }
 
 .justifyBetween {

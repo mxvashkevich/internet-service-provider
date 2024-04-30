@@ -2,7 +2,7 @@ import { NavigateLink } from '@src/components/atoms/index';
 import { useAuthStore } from '@src/store/authStore';
 
 export default function Navigator() {
-  const { isAdmin } = useAuthStore((store) => store);
+  const { isAdmin } = useAuthStore((store) => store); // TODO не работает
   return (
     <>
       <NavigateLink linkTo='/' label='Домашний' />

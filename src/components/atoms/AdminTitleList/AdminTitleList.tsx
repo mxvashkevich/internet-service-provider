@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 import styles from './AdminTitleList.module.scss';
 
 interface AdminTitleListProps {
-  title: 'Физические лица' | 'Юридические лица';
+  title: 'Физические лица' | 'Юридические лица' | 'ФЛ' | 'ЮЛ';
 }
 
 function AdminTitleList({ title }: AdminTitleListProps) {

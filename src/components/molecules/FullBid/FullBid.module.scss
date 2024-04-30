@@ -44,7 +44,8 @@
       pt-10
       [&>*:nth-child(1)]:self-end
       [&>*:nth-child(2)]:self-end
-
+      [&>*:nth-child(4)]:justify-start
+      [&>*:nth-child(4)]:self-start
     }
   }
 

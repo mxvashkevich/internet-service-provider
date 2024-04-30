@@ -44,6 +44,7 @@ export interface FullBidForm {
   address: string;
   email: string;
   isAcceptPolicy: boolean;
+  orgName?: string;
   files?: string[];
 }
 
@@ -54,6 +55,19 @@ export interface TariffType {
 
 export interface TariffWithPriceType extends TariffType {
   price?: number;
+}
+
+interface UserIdProp {
+  fullName: string;
+  phone: string;
+  type: 'person' | 'law';
+  userId: string;
+}
+
+interface TariffIdProp {
+  tariffId: string;
+  name: string;
+  price: number;
 }
 
 export interface ContractData {
@@ -71,6 +85,8 @@ export interface ContractData {
   isFinished: boolean;
   passportScan: string[]; // массив объектов, описывающих сканы паспорта (пустой в вашем случае)
   type: string;
+  userId: UserIdProp;
+  tariffId: TariffIdProp;
 }
 
 export type TAuthMeResponse = {
@@ -81,3 +97,42 @@ export type TAuthMeResponse = {
 export type TAuthLoginResponse = {
   accessToken: string;
 };
+
+export interface jwtBodyLogin {
+  id: string;
+  email: string;
+}
+export interface CreateLawContractData {
+  email: string;
+  orgName: string;
+  orgAddress?: string;
+  orgToUser?: string;
+  price?: number;
+  regNumber?: string;
+  INN?: string;
+  KPP?: string;
+  accountNumber?: string;
+  BIK?: string;
+  phone?: string;
+}
+
+export interface CreatePersonContractData {
+  address: string;
+  email: string;
+  fullName?: string;
+  passportSeria?: string;
+  passportNumber?: string;
+  passportByWho?: string;
+  passportGetDate?: string;
+  passportBirthDate?: string;
+  passportRegAddress?: string;
+  phone?: string;
+}
+
+export interface UpdateContractData {
+  contractId: string;
+  tariffId?: string;
+  data?: CreateLawContractData | CreatePersonContractData;
+  isFinished?: boolean;
+  type?: string;
+}

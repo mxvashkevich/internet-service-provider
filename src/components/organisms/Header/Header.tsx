@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Grid, Paper } from '@mui/material';
+import { jwtDecode } from 'jwt-decode';
 
 import { useAuthStore } from '@src/store/authStore';
 
@@ -8,11 +9,13 @@ import { Navigator } from '@src/components/molecules/index';
 import { MyButton, MainLogo } from '@src/components/atoms/index';
 
 import styles from './Header.module.scss';
+import { jwtBodyLogin } from '@src/components/types/types';
 
 export default function Header() {
   const { isAuth, setAuthStatus, setAdminStatus } = useAuthStore((store) => store);
   const [isShowModalAuth, setShowModalAuth] = useState<boolean>(false);
   const [isShowModalAdress, setShowModalAdress] = useState<boolean>(false);
+  const [userLogin, setUserLogin] = useState('');
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const handleAuthClick = () => {
@@ -24,6 +27,7 @@ export default function Header() {
       localStorage.removeItem('accessToken');
       setAuthStatus(false);
       setAdminStatus(false);
+      setUserLogin('');
     }
     if (buttonRef.current.textContent === 'Войти') {
       setShowModalAuth((prev) => !prev);
@@ -32,6 +36,12 @@ export default function Header() {
 
   useEffect(() => {
     setShowModalAuth(false);
+
+    const token = localStorage.getItem('accessToken');
+    if (isAuth && token) {
+      const jwtBody: jwtBodyLogin = jwtDecode(token);
+      setUserLogin(jwtBody.email);
+    }
   }, [isAuth]);
 
   return (
@@ -48,6 +58,7 @@ export default function Header() {
             text='Проверить доступность'
             onClick={() => setShowModalAdress((prev) => !prev)}
           />
+          {userLogin && <div className={styles.userName}>{userLogin}</div>}
           <button
             ref={buttonRef}
             type='button'

@@ -14,7 +14,7 @@ function MainLogo({ grow }: MainLogoProps) {
         alt='logo image'
         className={grow ? styles.imageSize : styles.image}
       />
-      <Typography component='figcaption' className='self-center' fontWeight={700} fontSize='30px'>
+      <Typography component='figcaption' className={styles.title} fontWeight={700} fontSize='30px'>
         TNGinter
       </Typography>
     </div>

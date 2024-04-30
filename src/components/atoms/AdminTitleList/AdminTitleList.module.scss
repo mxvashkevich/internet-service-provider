@@ -1,6 +1,46 @@
+@keyframes sizeSmallerDivider {
+  from {
+    width: 240px;
+  }
+
+  to {
+    width: 50px;
+  }
+}
+
+@keyframes sizeGrowingDivider {
+  from {
+    width: 50px;
+  }
+
+  to {
+    width: 240px;
+  }
+}
+
+@media (max-width: 992px) {
+  .container {
+    width: 50px;
+  }
+  .divider {
+    animation: sizeSmallerDivider 1s forwards;
+    width: 50px;
+  }
+}
+
+@media (min-width: 992.1px) {
+  .container {
+    width: 240px;
+  }
+  .divider {
+    animation: sizeGrowingDivider 1s forwards;
+    width: 240px;
+  }
+}
+
 .container {
   @apply
-  w-60 h-16 bg-white
+  h-16 bg-white
   text-xl
   flex flex-col justify-start items-center gap-2
   font-bold text-slate-500
@@ -12,6 +52,6 @@
   }
 
   .divider {
-    @apply h-0.5 w-60 bg-slate-600 rounded-md 
+    @apply h-0.5 bg-slate-600 rounded-md 
   }
 }

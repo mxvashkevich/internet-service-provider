@@ -1,0 +1,17 @@
+.container {
+  width: 100%;
+  height: 90vh;
+  @apply flex justify-center items-center
+}
+
+.form {
+  @apply flex flex-col gap-5 w-4/5 justify-center items-center
+}
+
+.form > input {
+  @apply border-2 rounded-md w-full h-10
+}
+
+.form > button {
+  @apply border-2 rounded-md h-12
+}

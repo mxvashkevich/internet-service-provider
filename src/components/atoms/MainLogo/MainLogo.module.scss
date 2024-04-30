@@ -1,12 +1,29 @@
-.imageSize {
-  @apply w-20 h-20 self-center;
+@media (max-width: 992px) {
+  .title {
+    display: none;
+  }
+  .image {
+    @apply w-10 h-10 self-center;
+  }
+  .container {
+    @apply flex flex-row justify-center;
+  }
 }
 
-.image {
-  @apply w-14 h-14 self-center;
+@media (min-width: 992.1px) {
+  .imageSize {
+    @apply w-20 h-20 self-center;
+  }
+  
+  .image {
+    @apply w-14 h-14 self-center;
+  }
+  
+  .container {
+    @apply flex flex-row justify-center;
+  }
+  
+  .title {
+    @apply self-center;
+  }
 }
-
-.container {
-  @apply flex flex-row justify-center;
-}
-

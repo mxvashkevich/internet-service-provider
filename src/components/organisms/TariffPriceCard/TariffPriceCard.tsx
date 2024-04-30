@@ -1,12 +1,9 @@
-import { MouseEventHandler, MouseEvent, useState, useLayoutEffect, useEffect } from 'react';
+import { MouseEventHandler, MouseEvent, useState, useLayoutEffect } from 'react';
 import { Link } from '@mui/material';
 
 import { Colors, fullBidDescriptions, smallBidDescriptions } from '@src/components/constants';
 import { FullBid, SmallBid } from '@src/components/molecules/index';
 import { Modal } from '@src/components/organisms';
-
-import { useFetchStore } from '@src/store/outerStore';
-import { TariffType } from '@src/components/types/types';
 
 import styles from './TariffPriceCard.module.scss';
 
@@ -27,9 +24,6 @@ interface ITariffPriceCardProps {
 function TariffPriceCard(props: ITariffPriceCardProps) {
   const { speedValue, spaceValue, price, description, headColor, benefits, hasToggle } = props;
 
-  const { tariffs } = useFetchStore((store) => store);
-
-  const [tariffId, setTariffId] = useState<string>('');
   const [isBenefitsDisplay, setBenefitsDisplay] = useState(true);
   const [isDisplayModal, setDisplayModal] = useState(false);
   const [heightContainer, setHeightContainer] = useState('645px');
@@ -61,21 +55,6 @@ function TariffPriceCard(props: ITariffPriceCardProps) {
         break;
     }
   });
-
-  useEffect(() => {
-    const tariffName = speedValue
-      ? `Домашний ${speedValue}`
-      : spaceValue
-        ? `Бизнес ${spaceValue}`
-        : '';
-    let tariffId = '';
-    tariffs.forEach((item: TariffType) => {
-      if (item.name === tariffName) {
-        tariffId = item.tariffId;
-      }
-    });
-    setTariffId(tariffId);
-  }, []);
 
   return (
     <div
@@ -122,15 +101,20 @@ function TariffPriceCard(props: ITariffPriceCardProps) {
         isBigContent
         hasCloseBtn={false}
       >
-        {price ? (
+        {price && speedValue ? (
           <FullBid
             color={headColor}
             description={fullBidDescriptions[headColor]}
             setModalDisplay={setDisplayModal}
-            tariffId={tariffId}
+            tariffValue={speedValue}
           />
         ) : (
-          <SmallBid color={headColor} description={smallBidDescriptions[headColor]} />
+          <SmallBid
+            color={headColor}
+            description={smallBidDescriptions[headColor]}
+            setModalDisplay={setDisplayModal}
+            tariffValue={spaceValue ?? 1}
+          />
         )}
       </Modal>
     </div>

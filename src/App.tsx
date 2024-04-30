@@ -13,6 +13,8 @@ import {
 import FallbackPage from './components/pages/FallbackPage/FallbackPage';
 
 import './index.css';
+import { useEffect } from 'react';
+import { useAuthStore } from './store/authStore';
 
 const theme = createTheme({
   typography: {
@@ -60,6 +62,11 @@ const router = createBrowserRouter([
 
 export default function App() {
   // useBeforeunload((e) => e.preventDefault())
+  const { isAuth, authMe } = useAuthStore((state) => state);
+
+  useEffect(() => {
+    authMe();
+  }, [isAuth]);
   return (
     <ThemeProvider theme={theme}>
       <RouterProvider router={router} />

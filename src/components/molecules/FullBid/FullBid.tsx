@@ -16,17 +16,20 @@ import { mapFullBidForm } from '@src/utils/mapper';
 
 import styles from './FullBid.module.scss';
 import { useFetchStore } from '@src/store/outerStore';
+import getTariffId from '@src/utils/getTariffId';
 
 interface IFullBidProps {
   color: keyof typeof Colors;
   description: string;
   setModalDisplay: Dispatch<SetStateAction<boolean>>;
-  tariffId: string;
+  tariffValue: number;
 }
 
-function FullBid({ color, description, setModalDisplay, tariffId }: IFullBidProps) {
+function FullBid({ color, description, setModalDisplay, tariffValue }: IFullBidProps) {
   // TODO переиспользовать
-  const { createContract: fetchContractData } = useFetchStore((store) => store);
+  const { createContract, fetchError, fetchSuccess, clearFetchSuccess, clearFetchError } =
+    useFetchStore((store) => store);
+  const { createFeed, tariffs } = useFetchStore((state) => state);
 
   const [trigger, setTrigger] = useState<boolean>(false);
   const [formErrors, setFormErrors] = useState<string>('');
@@ -45,8 +48,7 @@ function FullBid({ color, description, setModalDisplay, tariffId }: IFullBidProp
       setTrigger((prevState) => !prevState);
       return;
     } else {
-      console.log('sended for server', formValues);
-      fetchContractData(formValues, 'person', tariffId);
+      createContract(formValues, 'person', getTariffId(tariffs, 'Домашний', tariffValue));
       setModalDisplay((prevState) => !prevState);
     }
   };
@@ -59,6 +61,14 @@ function FullBid({ color, description, setModalDisplay, tariffId }: IFullBidProp
       setFormValues((prevState) => ({ ...prevState, files: imagesArray }));
     }
   };
+
+  useEffect(() => {
+    if (!fetchSuccess) return;
+    alert(fetchSuccess || fetchError);
+    setModalDisplay((prevState) => !prevState);
+    clearFetchSuccess();
+    clearFetchError();
+  }, [fetchSuccess]);
 
   useEffect(() => {
     setFormErrors('');
@@ -81,12 +91,16 @@ function FullBid({ color, description, setModalDisplay, tariffId }: IFullBidProp
     </Fragment>
   ));
 
+  const handleFeedClick = () => {
+    createFeed();
+  };
+
   return (
     <div className={styles.fullBidWrapper}>
       <div className={`${styles.bidDescription} ${styles[color]}`}>
         <h1 className={styles.title}>О ТАРИФЕ</h1>
         <p className={styles.textDescription}>{descriptionWithBreaks}</p>
-        <Button onClick={() => {}} variant='contained' type='button' className={styles.btn}>
+        <Button onClick={handleFeedClick} variant='contained' type='button' className={styles.btn}>
           Предзаявка
         </Button>
       </div>
@@ -100,8 +114,9 @@ function FullBid({ color, description, setModalDisplay, tariffId }: IFullBidProp
               Незаполненные поля: {formErrors}
             </p>
           )}
-          <Finder onDeboucedChange={setFormValues} placeholder='Введите адрес' />
+          <Finder name='finder' onDeboucedChange={setFormValues} placeholder='Введите адрес' />
           <MyInput
+            name='email'
             onDebouncedChange={setFormValues}
             type='email'
             placeholder='Введите адрес электронной почты'
@@ -124,6 +139,7 @@ function FullBid({ color, description, setModalDisplay, tariffId }: IFullBidProp
             <p>Прикрепите фотографии паспорта (главная страница и прописка)</p>
           </div>
           <TitledCheckbox
+            name='isAcceptPolicy'
             title='Я согласен на обработку персональных данных'
             checked={isChecked}
             onClick={setChecked}

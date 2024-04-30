@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 import { AdminList } from '@src/components/molecules/index';
@@ -10,32 +10,37 @@ import AdminMainContent from '@src/components/organisms/AdminMainContent/AdminMa
 import { useStore } from '@src/store/localStore';
 
 import styles from './AdminPage.module.scss';
+import { useAuthStore } from '@src/store/authStore';
+import { useNavigate } from 'react-router-dom';
+import FallbackPage from '../FallbackPage/FallbackPage';
 
 function AdminPage() {
-  const { contracts, getContracts, feeds, getFeeds } = useAdminStore((store) => store);
-  const { adminInputText } = useStore((state) => state);
+  const { error, contracts, getContracts, feeds, getFeeds } = useAdminStore((store) => store);
 
-  const [docs, setDocs] = useState(() => {
+  const isAdmin = useAuthStore((state) => state.isAdmin);
+
+  const navigate = useNavigate();
+
+  // const { adminInputText } = useStore((state) => state);
+
+  const [docs, setDocs] = useState(() => [...contracts, ...feeds]);
+
+  useEffect(() => {
     getContracts();
     getFeeds();
-    console.log('contracts: ', contracts, 'feeds: ', feeds);
-    return [...contracts, ...feeds];
-  });
-
-  useEffect(() => {
-    getContracts();
+    console.log('Документы: ', docs);
   }, []);
 
-  useEffect(() => {
-    console.log('contract>>>', contracts);
-  }, [contracts]);
+  // useEffect(() => {
+  //   const timerId = setTimeout(() => {
+  //     setDocs((prevState) => prevState.filter((item) => item?.fullName.includes(adminInputText)));
+  //   }, 800);
+  //   return () => clearTimeout(timerId);
+  // }, [adminInputText]);
 
   useEffect(() => {
-    const timerId = setTimeout(() => {
-      setDocs((prevState) => prevState.filter((item) => item?.fullName.includes(adminInputText)));
-    }, 800);
-    return () => clearTimeout(timerId);
-  }, [adminInputText]);
+    if (!isAdmin) navigate('/');
+  }, []);
 
   return (
     <AnimatePresence>
@@ -45,18 +50,22 @@ function AdminPage() {
         animate={{ opacity: 1 }}
         transition={{ duration: 2 }}
       >
-        <div className={styles.container}>
-          <aside className={styles.firstCol}>
-            <AdminList />
-          </aside>
-          <aside className={styles.secondCol}>
-            <AdminInput />
-            <AdminMainContent contracts={contracts} />
-          </aside>
-          <aside className={styles.thirdCol}>
-            <AdminFilter />
-          </aside>
-        </div>
+        {error ? (
+          <FallbackPage message={error} />
+        ) : (
+          <div className={styles.container}>
+            <aside className={styles.firstCol}>
+              <AdminList />
+            </aside>
+            <aside className={styles.secondCol}>
+              <AdminInput />
+              <AdminMainContent contracts={contracts} />
+            </aside>
+            <aside className={styles.thirdCol}>
+              <AdminFilter />
+            </aside>
+          </div>
+        )}
       </motion.div>
     </AnimatePresence>
   );

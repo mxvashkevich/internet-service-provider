@@ -54,6 +54,17 @@ export const useFetchStore = create<TFetchStore>()(
             type: typeContract,
             tariffId,
           });
+          set({ fetchSuccess: 'Запрос успешно отправлен!' });
+          set({ contract: data });
+        }
+        if (typeContract === 'law') {
+          // TODO доделать / проверить
+          const { data } = await firstApi.post('/contract/create', {
+            data: JSON.stringify(contractForm),
+            type: typeContract,
+            tariffId,
+          });
+          set({ fetchSuccess: 'Запрос успешно отправлен!' });
           set({ contract: data });
         }
       } catch (error: unknown) {
@@ -68,11 +79,15 @@ export const useFetchStore = create<TFetchStore>()(
     },
     createFeed: async () => {
       try {
-        const { data } = await secondApi.post('/feed/create-me', {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        const { data } = await secondApi.post(
+          '/feed/create-me',
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            },
           },
-        });
+        );
 
         set({ fetchSuccess: data.message });
       } catch (error: unknown) {

@@ -1,3 +1,8 @@
-.contractElem {
-  @apply w-2/5 border rounded-xl hover:shadow-xl hover:cursor-pointer text-lg flex flex-col items-start justify-center gap-3;
+.contractContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
+  row-gap: 10px;
+  height: 80vh;
+  overflow: auto;
 }

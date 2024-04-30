@@ -1,6 +1,10 @@
 import { IcecreamOutlined } from '@mui/icons-material';
 
-function FallbackPage() {
+interface FallbackPageProps {
+  message?: string;
+}
+
+function FallbackPage({ message }: FallbackPageProps) {
   return (
     <div
       role='alert'
@@ -14,6 +18,7 @@ function FallbackPage() {
     >
       <IcecreamOutlined />
       <p>Что-то пошло не так, попробуйте перезагрузить страницу!</p>
+      {message && <p>Текст ошибки: {message}</p>}
     </div>
   );
 }

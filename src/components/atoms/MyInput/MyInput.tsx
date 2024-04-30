@@ -16,11 +16,18 @@ import styles from './MyInput.module.scss';
 interface IInputProps<T> {
   type: TInputType;
   placeholder: string;
+  name: string;
   className?: string;
   onDebouncedChange?: Dispatch<SetStateAction<T>>;
 }
 
-function MyInput<T>({ type, placeholder, className = '', onDebouncedChange }: IInputProps<T>) {
+function MyInput<T>({
+  type,
+  placeholder,
+  name,
+  className = '',
+  onDebouncedChange,
+}: IInputProps<T>) {
   const [value, setValue] = useState('');
   const [error, setError] = useState(false);
 
@@ -67,6 +74,7 @@ function MyInput<T>({ type, placeholder, className = '', onDebouncedChange }: II
   return (
     <TextField
       className={className ? `${className}` : styles.input}
+      name={name}
       sx={{
         '& .MuiFormHelperText-root': {
           margin: '0 auto',
