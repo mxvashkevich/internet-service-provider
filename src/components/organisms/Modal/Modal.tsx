@@ -25,7 +25,6 @@ function Modal({
 
   const handleClickWrapper: MouseEventHandler<HTMLDivElement> = (e) => {
     const { target } = e;
-    console.log(!(target instanceof HTMLElement) || !target.className.includes('modalWrapper'));
     if (!(target instanceof HTMLElement) || !target.className.includes('modalWrapper')) return;
     setDisplay(!isDisplay);
   };

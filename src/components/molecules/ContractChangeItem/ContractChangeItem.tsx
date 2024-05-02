@@ -2,6 +2,7 @@ import { ContractData, UpdateContractData } from '@src/components/types/types';
 
 import styles from './ContractChangeItem.module.scss';
 import { useAdminStore } from '@src/store/adminStore';
+import { useEffect, useState } from 'react';
 
 interface ContractChangeItemProps {
   contract: ContractData;
@@ -25,14 +26,35 @@ function ContractChangeItem({ contract }: ContractChangeItemProps) {
       ...formJson,
     };
     // createContract(formJson as FullBidForm, 'law', getTariffId(tariffs, 'Бизнес', tariffValue));
-    updateContract(updateContractData);
+    updateContract(updateContractData); // TODO в contract_data закидывать
     alert(successMessage || errorMessage);
   };
 
   const isPerson = type === 'person';
 
+  const [images, setImages] = useState<Blob[]>([]);
+
+  useEffect(() => {
+    const text = data.data.files;
+
+    const blob1 = new Blob([text[0]], {
+      type: 'text/plain',
+    });
+    const blob2 = new Blob([text[1]], {
+      type: 'text/plain',
+    });
+
+    setImages([blob1, blob2]);
+  }, []);
+
   return (
     <div className={styles.container}>
+      {images.length && (
+        <>
+          {/* <img src={URL.createObjectURL(data.data.files[0])} /> */}
+          <img style={{ width: '100px', height: '100px' }} src={data.data.files[0]} />
+        </>
+      )}
       <form className={styles.form} onSubmit={handlerFormSubmit}>
         {isPerson ? (
           <>

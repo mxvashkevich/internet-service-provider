@@ -40,12 +40,12 @@ export interface AuthFormLogin {
 }
 
 export interface FullBidForm {
-  [key: string]: string | boolean | string[] | void;
+  // [key: string]: string | boolean | string[] | void;
   address: string;
   email: string;
   isAcceptPolicy: boolean;
   orgName?: string;
-  files?: string[];
+  files?: FileList;
 }
 
 export interface TariffType {

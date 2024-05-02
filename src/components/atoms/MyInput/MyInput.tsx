@@ -1,5 +1,5 @@
 import { ChangeEventHandler, Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { TextField } from '@mui/material';
+import { TextField, TextFieldProps } from '@mui/material';
 
 import { TInputType } from '@src/components/types/types';
 import { mapInputTypeForError } from '@src/utils/mapper';
@@ -27,7 +27,8 @@ function MyInput<T>({
   name,
   className = '',
   onDebouncedChange,
-}: IInputProps<T>) {
+  ...args
+}: TextFieldProps & IInputProps<T>) {
   const [value, setValue] = useState('');
   const [error, setError] = useState(false);
 
@@ -73,6 +74,7 @@ function MyInput<T>({
   }, [value]);
   return (
     <TextField
+      {...args}
       className={className ? `${className}` : styles.input}
       name={name}
       sx={{
@@ -85,7 +87,6 @@ function MyInput<T>({
       onChange={handleChange}
       type={type}
       onBlur={(e) => (!e.target.value ? setError(false) : null)}
-      error={error}
       helperText={error ? mapInputTypeForError(type) : ''}
     />
   );

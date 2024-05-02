@@ -2,7 +2,6 @@ import { firstApi, secondApi } from '@src/api/api';
 import {
   Contract,
   ContractData,
-  FullBidForm,
   TariffType,
   TariffWithPriceType,
   TypePerson,
@@ -21,7 +20,7 @@ type TFetchStore = {
   clearFetchError: () => void;
   clearFetchSuccess: () => void;
   createContract: (
-    contractForm: FullBidForm,
+    contractForm: { [k: string]: FormDataEntryValue } | FormData,
     typeContract: TypePerson,
     tariffId: string,
   ) => Promise<unknown>;
@@ -29,14 +28,18 @@ type TFetchStore = {
   createFeed: () => Promise<unknown>;
 };
 
+const initialState = {
+  tariffs: [],
+  contract: [],
+  shortApplications: [],
+  completeApplications: [],
+  fetchError: '',
+  fetchSuccess: '',
+};
+
 export const useFetchStore = create<TFetchStore>()(
   devtools((set) => ({
-    tariffs: [],
-    contract: [],
-    shortApplications: [],
-    completeApplications: [],
-    fetchError: '',
-    fetchSuccess: '',
+    ...initialState,
     clearFetchError: () => set(() => ({ fetchError: '' })),
     clearFetchSuccess: () => set(() => ({ fetchSuccess: '' })),
     getTariffs: async () => {
@@ -48,13 +51,14 @@ export const useFetchStore = create<TFetchStore>()(
     },
     createContract: async (contractForm, typeContract, tariffId) => {
       try {
-        if (typeContract === 'person') {
-          const { data } = await firstApi.post('/contract/create', {
-            data: JSON.stringify(contractForm),
-            type: typeContract,
-            tariffId,
-          });
+        if (typeContract === 'person' && contractForm instanceof FormData) {
+          console.log('token>', `Bearer ${localStorage.getItem('accessToken')}`);
+          contractForm.append('tariffId', tariffId);
+          contractForm.append('type', typeContract);
+          const { data } = await firstApi.post('/contract/create', contractForm);
+
           set({ fetchSuccess: 'Запрос успешно отправлен!' });
+
           set({ contract: data });
         }
         if (typeContract === 'law') {

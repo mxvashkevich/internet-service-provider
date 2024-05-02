@@ -24,6 +24,7 @@ interface IFinderProps<T> {
   placeholder?: string;
   variant?: TextFieldVariants;
   name: string;
+  error: boolean;
   onDeboucedChange?: Dispatch<SetStateAction<T>>;
 }
 
@@ -41,6 +42,7 @@ export default function Finder<T>({
   variant = 'outlined',
   onDeboucedChange,
   name,
+  error,
 }: IFinderProps<T>) {
   const [inputText, setInputText] = useState<string>('');
   const { adresses, setAdresses, setFinderInput } = useStore((store) => store);
@@ -101,7 +103,13 @@ export default function Finder<T>({
         onBlur={handleBlur}
         onChange={handleChange}
         renderInput={(param) => (
-          <TextField {...param} name={name} placeholder={placeholder} variant={variant} />
+          <TextField
+            {...param}
+            error={error}
+            name={name}
+            placeholder={placeholder}
+            variant={variant}
+          />
         )}
         sx={{ '& .MuiAutocomplete-popupIndicator': { display: 'none' } }} // отключение стрелки
       />
