@@ -75,3 +75,7 @@
 .justifyStart {
   @apply justify-start;
 }
+
+.active {
+  @apply bg-slate-100 rounded-t-3xl;
+}

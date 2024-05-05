@@ -3,9 +3,10 @@ import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 
 import { secondApi } from '@src/api/api';
-import { ContractData, UpdateContractData } from '@src/components/types/types';
+import { AdminCurrentTab, ContractData, UpdateContractData } from '@src/components/types/types';
 
 type AdminStore = {
+  currentTab: AdminCurrentTab;
   successMessage: string;
   errorMessage: string;
   contracts: ContractData[];
@@ -13,6 +14,7 @@ type AdminStore = {
   getContracts: () => Promise<unknown>;
   getFeeds: () => Promise<unknown>;
   updateContract: (body: UpdateContractData) => Promise<unknown>;
+  changeCurrentTab: (newTab: AdminCurrentTab) => void;
 };
 
 const initialState = {
@@ -25,6 +27,7 @@ const initialState = {
 export const useAdminStore = create<AdminStore>()(
   devtools((set, get) => ({
     ...initialState,
+    currentTab: 'ФД',
     getContracts: async () => {
       try {
         const { data } = await secondApi.get('/contract/all');
@@ -39,15 +42,14 @@ export const useAdminStore = create<AdminStore>()(
     getFeeds: async () => {},
     updateContract: async (body: UpdateContractData) => {
       try {
-        console.log('BODY to UPDATE', body);
         const { data } = await secondApi.post('/contract/update', body, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           },
         });
-        console.log(data);
+
         const prevContracts = [...get().contracts];
-        console.log(prevContracts);
+
         const findIndex = prevContracts.findIndex((item) => item.contactId === data.contractId);
 
         prevContracts[findIndex] = data;
@@ -60,5 +62,7 @@ export const useAdminStore = create<AdminStore>()(
         }
       }
     },
+    getAllContractsFeeds: () => {},
+    changeCurrentTab: (newTab: AdminCurrentTab) => { set(() => ({ currentTab: newTab, }))},
   })),
 );

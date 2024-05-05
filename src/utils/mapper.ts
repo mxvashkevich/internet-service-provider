@@ -1,4 +1,4 @@
-import { FullBidFormType, TInputType, TariffTypes } from '@src/components/types/types';
+import { AdminCurrentTab, FullBidFormType, TInputType, TariffTypes } from '@src/components/types/types';
 
 export const mapInputTypeForError = (type: TInputType) =>
   ({
@@ -26,3 +26,11 @@ export const mapFullBidForm = (type: FullBidFormType) =>
     isAcceptPolicy: 'согласие на обработку',
     files: 'файлы',
   })[type];
+
+export const mapAdminCurrentTab = (currentTab: AdminCurrentTab) => ({
+  'ФД': '',
+  'ФП': '',
+  'ФК': '',
+  'ЮД': '',
+  'ЮЗ': '',
+})[currentTab];

@@ -8,12 +8,14 @@ import useWidthSizeName from '@src/hooks/useWindowSize';
 
 interface AdminItemListProps {
   iconType: TypeContract;
-  title: 'Договоры' | 'Полные заявки' | 'Краткие заявки' | 'Админ';
+  title: 'Договоры' | 'Полные заявки' | 'Краткие заявки' | 'Админ' | 'Заявки';
   divider: 'under' | 'above' | 'none';
   justifyBetween?: boolean;
   typePerson?: TypePerson;
   rightIcon?: boolean;
-  onClick?: () => void;
+  onIconClick?: () => void;
+  handleItemClick?: () => void;
+  isActive: boolean;
 }
 
 function AdminItemList({
@@ -21,12 +23,12 @@ function AdminItemList({
   title,
   divider,
   rightIcon,
-  onClick,
+  onIconClick,
+  handleItemClick,
   justifyBetween,
+  isActive,
 }: AdminItemListProps) {
   const sizeWidthName = useWidthSizeName();
-
-  const handleClick = () => {};
 
   const isSmall = sizeWidthName === 'small';
 
@@ -38,16 +40,16 @@ function AdminItemList({
     <div className={styles.dividerWrapper}>
       {isAbove && <div className={styles.divider}></div>}
       <div
-        className={`${styles.container} ${justifyBetween ? styles.justifyBetween : styles.justifyStart}`}
-        onClick={handleClick}
+        className={`${styles.container} ${justifyBetween ? styles.justifyBetween : styles.justifyStart} ${isActive && styles.active}`}
+        onClick={handleItemClick}
       >
         {rightIcon && !isSmall && <Typography className={styles.title}>{title}</Typography>}
-        {onClick ? (
+        {onIconClick ? (
           <img
             src={`src/assets/admin/${iconType}-icon.png`}
             alt='icon'
             className={`${styles.image} ${styles.hover}`}
-            onClick={onClick}
+            onClick={onIconClick}
           />
         ) : (
           <img src={`src/assets/admin/${iconType}-icon.png`} alt='icon' className={styles.image} />

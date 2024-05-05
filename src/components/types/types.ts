@@ -131,3 +131,10 @@ export interface UpdateContractData {
   isFinished?: boolean;
   type?: string;
 }
+
+export type AdminCurrentTab =
+  'ФД' | // Физ лицо договоры
+  'ФП' | // Физ лицо полные заявки
+  'ФК' | // Физ лицо короткие заявки
+  'ЮД' | // Юр лицо договоры
+  'ЮЗ'; // Юр лицо заявки

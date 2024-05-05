@@ -1,8 +1,8 @@
 import { MouseEventHandler, ReactNode } from 'react';
 import { HighlightOffSharp as CloseIcon } from '@mui/icons-material';
-import { AnimatePresence, motion } from 'framer-motion';
 
 import styles from './Modal.module.scss';
+import { AnimatePresence, motion } from 'framer-motion';
 
 interface IModalProps {
   children: ReactNode;
