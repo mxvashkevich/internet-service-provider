@@ -55,7 +55,11 @@ export const useFetchStore = create<TFetchStore>()(
           console.log('token>', `Bearer ${localStorage.getItem('accessToken')}`);
           contractForm.append('tariffId', tariffId);
           contractForm.append('type', typeContract);
-          const { data } = await firstApi.post('/contract/create', contractForm);
+          const { data } = await firstApi.post('/contract/create', contractForm, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            },
+          });
 
           set({ fetchSuccess: 'Запрос успешно отправлен!' });
 
