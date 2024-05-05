@@ -75,12 +75,7 @@ export interface ContractData {
   created_at: string;
   data: {
     contactDataId: string;
-    data: {
-      address: string;
-      email: string;
-      files: string[]; // массив строк с URL файлов
-      isAcceptPolicy: boolean;
-    };
+    data: CreatePersonContractData | CreateLawContractData;
   };
   isFinished: boolean;
   passportScan: string[]; // массив объектов, описывающих сканы паспорта (пустой в вашем случае)

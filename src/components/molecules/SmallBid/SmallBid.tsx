@@ -6,6 +6,7 @@ import { Colors, colorStyles } from '@src/components/constants';
 import styles from './SmallBid.module.scss';
 import { useFetchStore } from '@src/store/outerStore';
 import getTariffId from '@src/utils/getTariffId';
+import validateFormEntries from '@src/utils/validateFormEntries';
 // import { FullBidForm } from '@src/components/types/types';
 
 interface ISmallBidProps {
@@ -24,16 +25,10 @@ function SmallBid({ color, description, tariffValue, setModalDisplay }: ISmallBi
   const handlerFormSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const formJson = Object.fromEntries(formData);
+    const formValues = Object.fromEntries(formData);
 
-    for (const key in formJson) {
-      // Проверяем форму на наличие пустых полей
-      if (!formJson[key]) {
-        setError('Форма не заполнена');
-      }
-    }
-    if (!error) {
-      createContract(formJson, 'law', getTariffId(tariffs, 'Бизнес', tariffValue));
+    if (!validateFormEntries(formValues, setError)) {
+      createContract(formValues, 'law', getTariffId(tariffs, 'Бизнес', tariffValue));
       setModalDisplay((prev) => !prev);
     }
   };

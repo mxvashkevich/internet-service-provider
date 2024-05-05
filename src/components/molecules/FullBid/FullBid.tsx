@@ -4,6 +4,7 @@ import {
   FormEventHandler,
   Fragment,
   SetStateAction,
+  useEffect,
   useState,
 } from 'react';
 import { Button } from '@mui/material';
@@ -14,6 +15,7 @@ import { Colors, colorStyles } from '@src/components/constants';
 import styles from './FullBid.module.scss';
 import { useFetchStore } from '@src/store/outerStore';
 import getTariffId from '@src/utils/getTariffId';
+import validateFormEntries from '@src/utils/validateFormEntries';
 
 interface IFullBidProps {
   color: keyof typeof Colors;
@@ -34,6 +36,7 @@ function FullBid({ color, description, setModalDisplay, tariffValue }: IFullBidP
 
   const handlerFormSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
+
     if (typeof files === 'undefined') {
       setError('Форма не заполнена. Файлы не прикреплены.');
       return;
@@ -45,17 +48,12 @@ function FullBid({ color, description, setModalDisplay, tariffValue }: IFullBidP
 
     formValues.isAcceptPolicy = Boolean(formValues.isAcceptPolicy) as unknown as FormDataEntryValue;
 
-    for (const key in formValues) {
-      // Проверяем форму на наличие пустых полей
-      if (!formValues[key] || files.length !== 2) {
-        setError('Форма не заполнена');
-      }
-    }
     formData.append('data', JSON.stringify(formValues));
     for (let i = 0; i < files.length; i++) {
       formData.append('files', files[i]);
     }
-    if (!error) {
+
+    if (!validateFormEntries(formValues, setError)) {
       createContract(formData, 'person', getTariffId(tariffs, 'Домашний', tariffValue));
       setModalDisplay((prev) => !prev);
     }
@@ -66,7 +64,6 @@ function FullBid({ color, description, setModalDisplay, tariffValue }: IFullBidP
       files: FileList;
     };
     setFiles(target.files);
-    setError('');
   };
 
   const descriptionWithBreaks = description.split('<br>').map((line, index) => (
@@ -79,6 +76,10 @@ function FullBid({ color, description, setModalDisplay, tariffValue }: IFullBidP
   const handleFeedClick = () => {
     createFeed();
   };
+
+  useEffect(() => {
+    console.log(files);
+  }, [files]);
 
   return (
     <div className={styles.fullBidWrapper}>
@@ -126,8 +127,15 @@ function FullBid({ color, description, setModalDisplay, tariffValue }: IFullBidP
               <img src={'src/assets/img-icon.png'} alt='select-file-logo' className={styles.img} />
               <span className={styles.imageCount}>{files ? files.length : 0}</span>
             </label>
-            <p>Прикрепите фотографии паспорта (главная страница и прописка)</p>
+            {!files && <p>Прикрепите фотографии паспорта (главная страница и прописка)</p>}
+            {files && files.length && (
+              <div className='flex flex-row gap-5 justify-center'>
+                <img src={URL.createObjectURL(files[0])} alt='dummy' width='100' height='100' />
+                <img src={URL.createObjectURL(files[1])} alt='dummy' width='100' height='100' />
+              </div>
+            )}
           </div>
+
           <TitledCheckbox
             name='isAcceptPolicy'
             title='Я согласен на обработку персональных данных'

@@ -1,0 +1,7 @@
+.images {
+  @apply p-5 h-full overflow-scroll
+}
+
+.images > img {
+  @apply rounded-3xl mb-3 shadow-xl
+}

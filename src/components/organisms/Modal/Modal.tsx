@@ -11,6 +11,7 @@ interface IModalProps {
   isBigContent?: boolean;
   isFullSizeContent?: boolean;
   hasCloseBtn?: boolean;
+  additionalContent?: ReactNode;
 }
 
 function Modal({
@@ -20,6 +21,7 @@ function Modal({
   isBigContent,
   isFullSizeContent,
   hasCloseBtn = true,
+  additionalContent,
 }: IModalProps) {
   // TODO скроллится фон, заменить на диалог
 
@@ -41,6 +43,13 @@ function Modal({
             transition={{ duration: 0.5 }}
           >
             <div className={styles.modalWrapper} onClick={handleClickWrapper}>
+              {additionalContent && (
+                <div
+                  className={`${styles.modalContent} ${styles.additionalContent} ${isFullSizeContent ? 'p-5' : ''} ${isBigContent ? 'max-w-screen-xl h-4/5 w-5/6' : 'max-w-screen-md'}`}
+                >
+                  {additionalContent}
+                </div>
+              )}
               <div
                 className={`${styles.modalContent} ${isFullSizeContent ? 'p-5' : ''} ${isBigContent ? 'max-w-screen-xl h-4/5 w-5/6' : 'max-w-screen-md'}`}
               >

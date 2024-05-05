@@ -1,9 +1,10 @@
-import { ContractData } from '@src/components/types/types';
+import { ContractData, CreatePersonContractData } from '@src/components/types/types';
 
 import styles from './AdminContractItem.module.scss';
 import { useState } from 'react';
 import { Modal } from '@src/components/organisms';
 import ContractChangeItem from '../ContractChangeItem/ContractChangeItem';
+import ImageContent from '../ImageContent/ImageContent';
 
 interface AdminContractItemProps {
   contract: ContractData;
@@ -53,10 +54,15 @@ function AdminContractItem({ contract, index }: AdminContractItemProps) {
           alt='3 dots'
           className={styles.image}
         />
-        <p>{data.data.address}</p>
+        <p>{(data.data as CreatePersonContractData).address}</p>
       </div>
-      <Modal isDisplay={display} setDisplay={setDisplay}>
-        <ContractChangeItem contract={contract} />
+      <Modal
+        isFullSizeContent
+        isDisplay={display}
+        setDisplay={setDisplay}
+        additionalContent={<ImageContent contract={contract} />}
+      >
+        <ContractChangeItem contract={contract} setModalDisplay={setDisplay} />
       </Modal>
     </div>
   );

@@ -20,8 +20,12 @@
     m-5
     w-full
     rounded-3xl bg-slate-50
-    transition-all
-}
+    transition-all;
+  }
+  .additionalContent {
+    height: 95vh;
+    border-radius: 1.5rem;
+  }
 
 .closeButton {
   @apply
