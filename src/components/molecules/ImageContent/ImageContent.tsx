@@ -7,10 +7,17 @@ interface ImageContentProps {
 }
 
 function ImageContent({ contract }: ImageContentProps) {
+  const hasImageContent = Boolean(contract.passportScan.length);
   return (
     <div className={styles.images}>
-      <img src={contract.passportScan[0]} />
-      <img src={contract.passportScan[1]} />
+      {hasImageContent ? (
+        <>
+          <img src={contract.passportScan[0]} />
+          <img src={contract.passportScan[1]} />
+        </>
+      ) : (
+        <div> Нет фотографий </div>
+      )}
     </div>
   );
 }
