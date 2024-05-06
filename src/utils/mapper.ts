@@ -28,9 +28,9 @@ export const mapFullBidForm = (type: FullBidFormType) =>
   })[type];
 
 export const mapAdminCurrentTab = (currentTab: AdminCurrentTab) => ({
-  'ФД': '',
-  'ФП': '',
-  'ФК': '',
-  'ЮД': '',
-  'ЮЗ': '',
+  'ФД': 'Договоры ФЛ',
+  'ФП': 'Полные заявки ФЛ',
+  'ФК': 'Короткие заявки ФЛ',
+  'ЮД': 'Договоры ЮЛ',
+  'ЮЗ': 'Заявки ЮЛ',
 })[currentTab];

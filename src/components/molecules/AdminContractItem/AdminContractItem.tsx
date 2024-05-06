@@ -60,7 +60,7 @@ function AdminContractItem({ contract, index }: AdminContractItemProps) {
         isFullSizeContent
         isDisplay={display}
         setDisplay={setDisplay}
-        additionalContent={<ImageContent contract={contract} />}
+        additionalContent={contract.type === 'person' ? <ImageContent contract={contract} /> : null}
       >
         <ContractChangeItem contract={contract} setModalDisplay={setDisplay} />
       </Modal>

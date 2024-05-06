@@ -16,7 +16,7 @@ interface ContractChangeItemProps {
 }
 
 function ContractChangeItem({ contract, setModalDisplay }: ContractChangeItemProps) {
-  const { tariffId, type, contactId, isFinished } = contract;
+  const { tariffId, type, contactId } = contract;
 
   const { updateContract, getContracts } = useAdminStore((state) => state);
 
@@ -30,11 +30,10 @@ function ContractChangeItem({ contract, setModalDisplay }: ContractChangeItemPro
       tariffId: tariffId.tariffId,
       data: { ...formJson } as unknown as CreateLawContractData | CreatePersonContractData,
       type,
-      isFinished,
+      isFinished: Boolean(formJson.isFinished),
     };
 
-    updateContract(updateContractData); // TODO в contract_data закидывать
-    // alert(successMessage || errorMessage);
+    updateContract(updateContractData);
     setModalDisplay((prev) => !prev);
   };
 

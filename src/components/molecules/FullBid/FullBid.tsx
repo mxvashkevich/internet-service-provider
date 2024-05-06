@@ -22,9 +22,16 @@ interface IFullBidProps {
   description: string;
   setModalDisplay: Dispatch<SetStateAction<boolean>>;
   tariffValue: number;
+  isAdminCreate?: boolean;
 }
 
-function FullBid({ color, description, setModalDisplay, tariffValue }: IFullBidProps) {
+function FullBid({
+  color,
+  description,
+  setModalDisplay,
+  tariffValue,
+  isAdminCreate = false,
+}: IFullBidProps) {
   const { createContract } = useFetchStore((store) => store);
   const { createFeed, tariffs } = useFetchStore((state) => state);
 
@@ -82,14 +89,21 @@ function FullBid({ color, description, setModalDisplay, tariffValue }: IFullBidP
   }, [files]);
 
   return (
-    <div className={styles.fullBidWrapper}>
-      <div className={`${styles.bidDescription} ${styles[color]}`}>
-        <h1 className={styles.title}>О ТАРИФЕ</h1>
-        <p className={styles.textDescription}>{descriptionWithBreaks}</p>
-        <Button onClick={handleFeedClick} variant='contained' type='button' className={styles.btn}>
-          Предзаявка
-        </Button>
-      </div>
+    <div className={`${styles.fullBidWrapper} ${isAdminCreate ? styles.isAdminCreate : ''}`}>
+      {!isAdminCreate && (
+        <div className={`${styles.bidDescription} ${styles[color]}`}>
+          <h1 className={styles.title}>О ТАРИФЕ</h1>
+          <p className={styles.textDescription}>{descriptionWithBreaks}</p>
+          <Button
+            onClick={handleFeedClick}
+            variant='contained'
+            type='button'
+            className={styles.btn}
+          >
+            Предзаявка
+          </Button>
+        </div>
+      )}
 
       <div className={styles.bidForm}>
         <h1 className={styles.title} style={{ color: colorStyles[color] }}>

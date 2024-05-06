@@ -17,6 +17,9 @@
 }
 
 .images > img {
-
   @apply w-1/2 h-auto rounded-3xl p-3 shadow-md;
+}
+
+span {
+  @apply mr-5;
 }

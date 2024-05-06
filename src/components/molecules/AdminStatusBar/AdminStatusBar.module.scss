@@ -1,0 +1,25 @@
+.container {
+  @apply rounded-3xl bg-gray-100 w-full h-20
+  flex flex-row justify-between items-center
+  px-5;
+
+  .titleContainer {
+    @apply flex flex-row justify-center items-center gap-3;
+  }
+
+  .title {
+    @apply text-xl font-bold;
+  }
+
+  .count {
+    @apply text-xl font-light bg-gray-200 rounded-2xl px-4 py-1;
+  }
+
+  .addImage {
+    @apply size-9 hover:cursor-pointer hover:size-10;
+  }
+}
+
+.form {
+  @apply flex justify-center items-center;
+}

@@ -109,3 +109,19 @@
 .white {
   @apply bg-my-white;
 }
+
+.isAdminCreate {
+  @apply flex justify-center items-center flex-col gap-5;
+
+  .bidForm {
+    @apply p-10;
+  }
+
+  .bidForm:first-child > form {
+    @apply flex justify-center items-center flex-col gap-5
+  }
+
+  .bidForm:first-child > h1 {
+    @apply text-xl
+  }
+}

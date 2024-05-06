@@ -138,3 +138,9 @@ export type AdminCurrentTab =
   'ФК' | // Физ лицо короткие заявки
   'ЮД' | // Юр лицо договоры
   'ЮЗ'; // Юр лицо заявки
+
+export interface FeedData {
+  feedId: string;
+  userId: unknown;
+  isActive: boolean;
+}

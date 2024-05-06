@@ -3,14 +3,14 @@ import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 
 import { secondApi } from '@src/api/api';
-import { AdminCurrentTab, ContractData, UpdateContractData } from '@src/components/types/types';
+import { AdminCurrentTab, ContractData, FeedData, UpdateContractData } from '@src/components/types/types';
 
 type AdminStore = {
   currentTab: AdminCurrentTab;
   successMessage: string;
   errorMessage: string;
   contracts: ContractData[];
-  feeds: string[];
+  feeds: FeedData[];
   getContracts: () => Promise<unknown>;
   getFeeds: () => Promise<unknown>;
   updateContract: (body: UpdateContractData) => Promise<unknown>;

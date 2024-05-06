@@ -14,9 +14,16 @@ interface ISmallBidProps {
   description: string;
   tariffValue: number;
   setModalDisplay: React.Dispatch<React.SetStateAction<boolean>>;
+  isAdminCreate?: boolean;
 }
 
-function SmallBid({ color, description, tariffValue, setModalDisplay }: ISmallBidProps) {
+function SmallBid({
+  color,
+  description,
+  tariffValue,
+  setModalDisplay,
+  isAdminCreate = false,
+}: ISmallBidProps) {
   const { tariffs, createContract, fetchError, fetchSuccess, clearFetchSuccess, clearFetchError } =
     useFetchStore((store) => store);
 
@@ -51,11 +58,13 @@ function SmallBid({ color, description, tariffValue, setModalDisplay }: ISmallBi
   }, [fetchSuccess]);
 
   return (
-    <div className={styles.container}>
-      <div className={`${styles.containerDescription} ${styles[color]}`}>
-        <h1 className={styles.title}>О ТАРИФЕ</h1>
-        <p className={styles.textDescription}>{descriptionWithBreaks}</p>
-      </div>
+    <div className={`${styles.container} ${isAdminCreate ? styles.isAdminCreate : ''}`}>
+      {!isAdminCreate && (
+        <div className={`${styles.containerDescription} ${styles[color]}`}>
+          <h1 className={styles.title}>О ТАРИФЕ</h1>
+          <p className={styles.textDescription}>{descriptionWithBreaks}</p>
+        </div>
+      )}
       <div className={styles.bidForm}>
         <h1 className={styles.title} style={{ color: colorStyles[color] }}>
           ПОЛНАЯ ЗАЯВКА

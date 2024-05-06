@@ -12,7 +12,7 @@ interface ContractChangeItemProps {
 }
 
 function FormChangeContract({ contract, onSubmit = () => {} }: ContractChangeItemProps) {
-  const { data, userId, type } = contract;
+  const { data, userId, type, isFinished } = contract;
   const isPerson = type === 'person';
   return (
     <form className={styles.form} onSubmit={onSubmit}>
@@ -67,21 +67,31 @@ function FormChangeContract({ contract, onSubmit = () => {} }: ContractChangeIte
             placeholder='Адрес регистрации'
             defaultValue={(data.data as CreatePersonContractData).passportRegAddress}
           />
-          {/* <input type='checkbox' value={isFinished} /> */}
+          <div>
+            <span>Закончено ли заполнение заявки?</span>
+            <input name='isFinished' type='checkbox' defaultChecked={isFinished} />
+          </div>
           <button type='submit'>Редактировать</button>
         </>
       ) : (
         <>
           <h1>{'Юридическое лицо'}</h1>
-          <input type='text' name='phone' defaultValue={userId.phone} />
+          <input
+            type='text'
+            name='phone'
+            placeholder='Контантный номер телефона'
+            defaultValue={userId.phone}
+          />
           <input
             type='text'
             name='email'
+            placeholder='email'
             defaultValue={(data.data as CreateLawContractData).email}
           />
           <input
             type='text'
             name='orgAddress'
+            placeholder='Адрес организации'
             defaultValue={(data.data as CreateLawContractData).orgAddress}
           />
           <input type='text' name='orgtoUser' defaultValue={userId.fullName} />
@@ -121,6 +131,10 @@ function FormChangeContract({ contract, onSubmit = () => {} }: ContractChangeIte
             placeholder='БИК'
             defaultValue={(data.data as CreateLawContractData).BIK}
           />
+          <div>
+            <span>Закончено ли заполнение заявки?</span>
+            <input name='isFinished' type='checkbox' defaultChecked={isFinished} />
+          </div>
           <button type='submit'>Редактировать</button>
         </>
       )}
