@@ -84,10 +84,6 @@ function FullBid({
     createFeed();
   };
 
-  useEffect(() => {
-    console.log(files);
-  }, [files]);
-
   return (
     <div className={`${styles.fullBidWrapper} ${isAdminCreate ? styles.isAdminCreate : ''}`}>
       {!isAdminCreate && (

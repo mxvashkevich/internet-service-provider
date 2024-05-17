@@ -20,6 +20,10 @@
   @apply w-1/2 h-auto rounded-3xl p-3 shadow-md;
 }
 
+.download {
+  @apply size-8
+}
+
 span {
   @apply mr-5;
 }

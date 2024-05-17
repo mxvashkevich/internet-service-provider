@@ -3,7 +3,12 @@ import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 
 import { secondApi } from '@src/api/api';
-import { AdminCurrentTab, ContractData, FeedData, UpdateContractData } from '@src/components/types/types';
+import {
+  AdminCurrentTab,
+  ContractData,
+  FeedData,
+  UpdateContractData,
+} from '@src/components/types/types';
 
 type AdminStore = {
   currentTab: AdminCurrentTab;
@@ -11,6 +16,7 @@ type AdminStore = {
   errorMessage: string;
   contracts: ContractData[];
   feeds: FeedData[];
+  pdf: FormData | null;
   getContracts: () => Promise<unknown>;
   getFeeds: () => Promise<unknown>;
   updateContract: (body: UpdateContractData) => Promise<unknown>;
@@ -28,6 +34,7 @@ export const useAdminStore = create<AdminStore>()(
   devtools((set, get) => ({
     ...initialState,
     currentTab: 'ФД',
+    pdf: null,
     getContracts: async () => {
       try {
         const { data } = await secondApi.get('/contract/all');
@@ -63,6 +70,26 @@ export const useAdminStore = create<AdminStore>()(
       }
     },
     getAllContractsFeeds: () => {},
-    changeCurrentTab: (newTab: AdminCurrentTab) => { set(() => ({ currentTab: newTab, }))},
+    changeCurrentTab: (newTab: AdminCurrentTab) => {
+      set(() => ({ currentTab: newTab }));
+    },
+    // getPdfFile: async (uuid: string) => {
+    //   try {
+    //     const { data }: { data: FormData } = await secondApi.get(
+    //       `contract/create-pdf?uuid=${uuid}}`,
+    //       {
+    //         headers: {
+    //           Accept: 'multipart/form-data',
+    //         },
+    //       },
+    //     );
+    //     set({ pdf: data });
+    //   } catch (error: unknown) {
+    //     if (axios.isAxiosError(error)) {
+    //       console.error('Error get contacts with status', error.status);
+    //       set(() => ({ errorMessage: error.message }));
+    //     }
+    //   }
+    // },
   })),
 );

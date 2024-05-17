@@ -36,6 +36,11 @@ function TariffPriceCard(props: ITariffPriceCardProps) {
   };
 
   const handlerClickHeadCard = () => {
+    if (!localStorage.getItem('accessToken')) {
+      alert('Необходимо авторизоваться!');
+      return;
+    }
+
     setDisplayModal(true);
   };
 

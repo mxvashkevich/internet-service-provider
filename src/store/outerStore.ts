@@ -52,7 +52,6 @@ export const useFetchStore = create<TFetchStore>()(
     createContract: async (contractForm, typeContract, tariffId) => {
       try {
         if (typeContract === 'person' && contractForm instanceof FormData) {
-          console.log('token>', `Bearer ${localStorage.getItem('accessToken')}`);
           contractForm.append('tariffId', tariffId);
           contractForm.append('type', typeContract);
           const { data } = await firstApi.post('/contract/create', contractForm, {

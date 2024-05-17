@@ -38,7 +38,6 @@ function ContractChangeItem({ contract, setModalDisplay }: ContractChangeItemPro
   };
 
   useEffect(() => {
-    console.log(contract.passportScan[0]);
     return () => {
       getContracts();
     };
