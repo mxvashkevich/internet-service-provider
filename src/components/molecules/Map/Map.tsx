@@ -18,8 +18,8 @@ function Map() {
 
   return (
     <MapContainer center={[47.222435, 38.919043]} zoom={14.5} scrollWheelZoom={false}>
-      {/* <TileLayer url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' /> */}
-      <TileLayer url='https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png' />
+      <TileLayer url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' />
+      {/* <TileLayer url='https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png' /> */}
       {markers.map((marker: Marker) => (
         <Marker key={marker.popUp} position={marker.geocode} icon={icon} />
       ))}
