@@ -173,6 +173,6 @@ export enum Endpoints {
 
 export const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 export const phoneRegex = /^\+7\d{10}$/;
-export const passwordRegex = /^.{8,20}$/;
+export const passwordRegex = /^.{4,20}$/;
 export const nameRegex = /^[^\d]*$/;
 export const loginRegex = /^[a-zA-Z0-9]{5,20}$/;
