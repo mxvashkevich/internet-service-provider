@@ -58,7 +58,6 @@ function BidComponent({ title }: IBidProps) {
         Нажимая кнопку “Получать обновления”, вы соглашаетесь получать рекламные электронные письма.
       </p>
       <Modal isDisplay={isDisplayModal} setDisplay={setDisplayModal}>
-        {/* TODO проверить должно ли уходить на бек */}
         <p style={{ height: '200px', margin: '0 auto', paddingTop: '90px', fontSize: '26px' }}>
           Вы подписались на обновления
         </p>

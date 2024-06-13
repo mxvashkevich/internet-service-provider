@@ -7,13 +7,13 @@ import { AuthFormLogin, AuthFormRegister } from '@src/components/types/types';
 
 import styles from './AuthComponent.module.scss';
 import { useAuthStore } from '@src/store/authStore';
+import { error } from "console";
 
 interface IAuthComponentProps {
   setDisplayModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function AuthComponent({ setDisplayModal }: IAuthComponentProps) {
-  // TODO Formik yup validate
   const {
     isAdmin,
     authLogin,
@@ -28,6 +28,7 @@ export default function AuthComponent({ setDisplayModal }: IAuthComponentProps) 
 
   const [isLogin, setLogin] = useState(true);
   const [formError, setFormError] = useState(false);
+  const [isFormValidateError, setIsFormValidateError] = useState(false);
 
   const initialState = isLogin
     ? {
@@ -45,6 +46,7 @@ export default function AuthComponent({ setDisplayModal }: IAuthComponentProps) 
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
+    if (isFormValidateError) return;
     if (Object.values(authForm).every((item) => item === '')) {
       setFormError(true);
     } else {
@@ -107,6 +109,8 @@ export default function AuthComponent({ setDisplayModal }: IAuthComponentProps) 
               className={styles.input}
               type='fullName'
               placeholder='Введите ФИО'
+              error={isFormValidateError}
+              setError={setIsFormValidateError}
             />
             <MyInput
               key={`${fetchError}2`}
@@ -114,6 +118,8 @@ export default function AuthComponent({ setDisplayModal }: IAuthComponentProps) 
               className={styles.input}
               type='phone'
               placeholder='+79001234455'
+              error={isFormValidateError}
+              setError={setIsFormValidateError}
             />
           </>
         )}
@@ -123,6 +129,8 @@ export default function AuthComponent({ setDisplayModal }: IAuthComponentProps) 
           className={styles.input}
           type='login'
           placeholder='Введите логин'
+          error={isFormValidateError}
+          setError={setIsFormValidateError}
         />
         <MyInput
           key={`${fetchError}4`}
@@ -130,6 +138,8 @@ export default function AuthComponent({ setDisplayModal }: IAuthComponentProps) 
           className={styles.input}
           type='password'
           placeholder='Введите пароль'
+          error={isFormValidateError}
+          setError={setIsFormValidateError}
         />
         <Box className={styles.btns}>
           <Button

@@ -171,8 +171,10 @@ export enum Endpoints {
   auth = 'auth',
 }
 
-export const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-export const phoneRegex = /^\+7\d{10}$/;
-export const passwordRegex = /^.{4,20}$/;
-export const nameRegex = /^[^\d]*$/;
-export const loginRegex = /^[a-zA-Z0-9]{5,20}$/;
+export const REGEX = {
+  email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+  phone: /^\+7\d{10}$/,
+  password: /^.{4,20}$/,
+  fullName: /^(?=.{10,})[А-Яа-яЁё0-9\s\-,.]+$/,
+  login: /^[a-zA-Z0-9]{5,20}$/,
+};

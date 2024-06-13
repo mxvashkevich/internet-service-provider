@@ -1,23 +1,18 @@
 import { ChangeEventHandler, Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { TextField, TextFieldProps } from '@mui/material';
 
-import { TInputType } from '@src/components/types/types';
 import { mapInputTypeForError } from '@src/utils/mapper';
-import {
-  emailRegex,
-  loginRegex,
-  nameRegex,
-  passwordRegex,
-  phoneRegex,
-} from '@src/components/constants';
+import { REGEX } from '@src/components/constants';
 
 import styles from './MyInput.module.scss';
 
 interface IInputProps<T> {
-  type: TInputType;
+  type: keyof typeof REGEX;
   placeholder: string;
   name: string;
   className?: string;
+  error?: boolean;
+  setError?: Dispatch<SetStateAction<boolean>>;
   onDebouncedChange?: Dispatch<SetStateAction<T>>;
 }
 
@@ -27,51 +22,61 @@ function MyInput<T>({
   name,
   className = '',
   onDebouncedChange,
+  setError,
   ...args
 }: TextFieldProps & IInputProps<T>) {
   const [value, setValue] = useState('');
-  const [error, setError] = useState(false);
+  const [localError, setLocalError] = useState(false);
+
+  const validateInput = (inputValue: string, regex: RegExp) => {
+    const test = regex.test(inputValue);
+    switch (true) {
+      case !test && !!setError:
+        setLocalError(true);
+        setError(true);
+        break;
+      case !test:
+        setLocalError(true);
+        break;
+      case (inputValue === '' || value === '') && !!setError:
+        setError(false);
+        setLocalError(false);
+        break;
+      case inputValue === '' || value === '':
+        setLocalError(false);
+        break;
+      default:
+        setLocalError(false);
+        setError ? setError(false) : null;
+    }
+  };
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     if (!e.target) return;
     const inputValue = (e.target as HTMLInputElement).value;
-    if (inputValue === '') setError(false);
+
+    validateInput(inputValue, REGEX[type]);
+
     setValue(inputValue);
   };
 
-  const validateInput = (inputValue: string, regex: RegExp) => {
-    !regex.test(inputValue) ? setError(true) : setError(false);
-  };
+  useEffect(() => {
+    if (value) {
+      const timeoutId = setTimeout(() => {
+        if (onDebouncedChange) {
+          onDebouncedChange((prevState) => ({
+            ...prevState,
+            [type]: value,
+          }));
+        }
+      }, 800);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [value]);
 
   useEffect(() => {
-    if (!value) return;
-    const timeoutId = setTimeout(() => {
-      switch (type) {
-        case 'email':
-          validateInput(value, emailRegex);
-          break;
-        case 'phone':
-          validateInput(value, phoneRegex);
-          break;
-        case 'password':
-          validateInput(value, passwordRegex);
-          break;
-        case 'fullName':
-          validateInput(value, nameRegex);
-          break;
-        case 'login':
-          validateInput(value, loginRegex);
-          break;
-      }
-      if (onDebouncedChange) {
-        onDebouncedChange((prevState) => ({
-          ...prevState,
-          [type]: value,
-        }));
-      }
-    }, 800);
-    return () => clearTimeout(timeoutId);
-  }, [value]);
+    console.log('localerror', localError);
+  });
   return (
     <TextField
       {...args}
@@ -86,8 +91,7 @@ function MyInput<T>({
       value={value}
       onChange={handleChange}
       type={type}
-      onBlur={(e) => (!e.target.value ? setError(false) : null)}
-      helperText={error ? mapInputTypeForError(type) : ''}
+      helperText={localError ? mapInputTypeForError(type) : ''}
     />
   );
 }
