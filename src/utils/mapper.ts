@@ -1,4 +1,9 @@
-import { AdminCurrentTab, FullBidFormType, TInputType, TariffTypes } from '@src/components/types/types';
+import {
+  AdminCurrentTab,
+  FullBidFormType,
+  TInputType,
+  TariffTypes,
+} from '@src/components/types/types';
 
 export const mapInputTypeForError = (type: TInputType) =>
   ({
@@ -12,6 +17,7 @@ export const mapInputTypeForError = (type: TInputType) =>
 
 export const mapTariffTypes = (type: TariffTypes) =>
   ({
+    'Домашний 200': 'person200',
     'Домашний 300': 'person300',
     'Домашний 400': 'person400',
     'Домашний 500': 'person500',
@@ -27,10 +33,11 @@ export const mapFullBidForm = (type: FullBidFormType) =>
     files: 'файлы',
   })[type];
 
-export const mapAdminCurrentTab = (currentTab: AdminCurrentTab) => ({
-  'ФД': 'Договоры ФЛ',
-  'ФП': 'Полные заявки ФЛ',
-  'ФК': 'Короткие заявки ФЛ',
-  'ЮД': 'Договоры ЮЛ',
-  'ЮЗ': 'Заявки ЮЛ',
-})[currentTab];
+export const mapAdminCurrentTab = (currentTab: AdminCurrentTab) =>
+  ({
+    ФД: 'Договоры ФЛ',
+    ФП: 'Полные заявки ФЛ',
+    ФК: 'Короткие заявки ФЛ',
+    ЮД: 'Договоры ЮЛ',
+    ЮЗ: 'Заявки ЮЛ',
+  })[currentTab];

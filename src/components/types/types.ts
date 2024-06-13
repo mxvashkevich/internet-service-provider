@@ -13,6 +13,7 @@ export type TInputType = 'email' | 'login' | 'password' | 'fullName' | 'phone' |
 export type FullBidFormType = 'address' | 'email' | 'isAcceptPolicy' | 'files';
 
 export type TariffTypes =
+  | 'Домашний 200'
   | 'Домашний 300'
   | 'Домашний 400'
   | 'Домашний 500'

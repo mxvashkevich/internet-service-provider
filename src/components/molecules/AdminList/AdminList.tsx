@@ -10,7 +10,6 @@ function AdminList() {
   const sizeWidthName = useWidthSizeName();
   const { currentTab, changeCurrentTab } = useAdminStore((store) => store);
 
-
   const isSmall = sizeWidthName === 'small';
 
   const handleExit = () => {

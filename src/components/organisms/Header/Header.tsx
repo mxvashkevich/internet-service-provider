@@ -44,6 +44,10 @@ export default function Header() {
     }
   }, [isAuth]);
 
+  const handleClickFinder = () => {
+    setShowModalAdress(false);
+  }
+
   return (
     <Paper elevation={4}>
       <Grid container className='p-2' component='header'>
@@ -71,7 +75,7 @@ export default function Header() {
             <AuthComponent setDisplayModal={setShowModalAuth} />
           </Modal>
           <Modal isDisplay={isShowModalAdress} setDisplay={setShowModalAdress}>
-            <FinderComponent />
+            <FinderComponent onClick={handleClickFinder}/>
           </Modal>
         </Grid>
       </Grid>

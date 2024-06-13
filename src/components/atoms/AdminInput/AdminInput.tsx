@@ -1,18 +1,34 @@
-import { ChangeEventHandler, useState } from 'react';
-import { useStore } from '@src/store/localStore';
+import { ChangeEventHandler, useEffect, useState } from 'react';
 
 import styles from './AdminInput.module.scss';
 
-function AdminInput() {
+interface AdminInputProps {
+  onChange: React.Dispatch<React.SetStateAction<string>>;
+}
+
+function AdminInput({ onChange }: AdminInputProps) {
   const [isError, setError] = useState<boolean>(false);
-  const { adminInputText, setAdminInputText } = useStore((state) => state);
+  const [query, setQuery] = useState('');
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    if (!/\d/.test(e.target.value)) {
-      setError(true);
-    }
-    setAdminInputText(e.target.value);
+    setQuery(e.target.value);
   };
+
+  useEffect(() => {
+    if (!query) return;
+
+    const timerId = window.setTimeout(() => {
+      if (!/\d/.test(query)) {
+        setError(true);
+        window.clearTimeout(timerId);
+      }
+
+      onChange(query);
+    }, 500);
+
+    return () => window.clearTimeout(timerId);
+  }, [query]);
+
   return (
     <div className={styles.container}>
       <img src='src/assets/admin/find-icon.png' className={styles.image} />
@@ -20,7 +36,7 @@ function AdminInput() {
         type='text'
         placeholder='Поиск'
         className={`${styles.input} ${isError ? styles.inputError : ''}`}
-        value={adminInputText}
+        value={query}
         onChange={handleChange}
       />
     </div>

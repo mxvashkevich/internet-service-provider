@@ -5,7 +5,7 @@ import { Dispatch, SetStateAction } from 'react';
 
 interface ITitledCheckboxProps {
   title: string;
-  name: string;
+  name?: string;
   className?: string;
   checked?: boolean;
   onClick?: Dispatch<SetStateAction<boolean>>;

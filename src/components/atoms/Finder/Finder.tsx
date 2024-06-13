@@ -25,6 +25,8 @@ interface IFinderProps<T> {
   variant?: TextFieldVariants;
   name: string;
   error: boolean;
+  value?: string;
+  onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
   onDeboucedChange?: Dispatch<SetStateAction<T>>;
 }
 
@@ -43,6 +45,9 @@ export default function Finder<T>({
   onDeboucedChange,
   name,
   error,
+  value,
+  onChange,
+  ...rest
 }: IFinderProps<T>) {
   const [inputText, setInputText] = useState<string>('');
   const { adresses, setAdresses, setFinderInput } = useStore((store) => store);
@@ -98,6 +103,7 @@ export default function Finder<T>({
   return (
     <Box className={styles.containerAutocomplete}>
       <Autocomplete
+        {...rest}
         options={adresses}
         onInput={handleChangeInput}
         onBlur={handleBlur}
@@ -109,6 +115,8 @@ export default function Finder<T>({
             name={name}
             placeholder={placeholder}
             variant={variant}
+            value={value}
+            onChange={onChange}
           />
         )}
         sx={{ '& .MuiAutocomplete-popupIndicator': { display: 'none' } }} // отключение стрелки

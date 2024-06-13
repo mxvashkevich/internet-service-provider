@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 
@@ -14,11 +14,17 @@ import FallbackPage from '../FallbackPage/FallbackPage';
 import styles from './AdminPage.module.scss';
 import AdminStatusBar from '@src/components/molecules/AdminStatusBar/AdminStatusBar';
 import { getCurrentData } from '@src/utils/getCurrentData';
+import { ContractData } from '@src/components/types/types';
 
 function AdminPage() {
   const { errorMessage, contracts, feeds, currentTab, getContracts } = useAdminStore(
     (store) => store,
   );
+  const [conractsFiltered, setContractsFiltered] = useState(contracts);
+
+  const [findQuery, setFindQuery] = useState('');
+  const [contractFilter, setContractFilter] = useState<string>('');
+  const [date, setDate] = useState(new Date());
 
   const isAdmin = useAuthStore((state) => state.isAdmin);
 
@@ -28,6 +34,24 @@ function AdminPage() {
     if (!isAdmin) navigate('/');
     getContracts();
   }, []);
+
+  useEffect(() => {
+    if (!findQuery || contracts.length === 0) return;
+
+    const filteredContracts = contracts.filter((item: ContractData) =>
+      [
+        item.userId.fullName,
+        item.userId.phone,
+        item.userId.type,
+        item.tariffId.name,
+        item.tariffId.price,
+      ].includes(findQuery),
+    );
+
+    setContractsFiltered(filteredContracts);
+  }, [findQuery, contracts]);
+
+
 
   return (
     <AnimatePresence>
@@ -45,12 +69,12 @@ function AdminPage() {
               <AdminList />
             </aside>
             <aside className={styles.secondCol}>
-              <AdminInput />
+              <AdminInput onChange={setFindQuery} />
               <AdminStatusBar />
               <AdminMainContent contracts={getCurrentData(currentTab, contracts, feeds)} />
             </aside>
             <aside className={styles.thirdCol}>
-              <AdminFilter />
+              <AdminFilter changeFilter={setContractFilter} changeDate={setDate} />
             </aside>
           </div>
         )}

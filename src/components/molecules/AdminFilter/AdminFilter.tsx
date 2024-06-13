@@ -7,7 +7,12 @@ import { TitledCheckbox } from '@src/components/atoms';
 
 import styles from './AdminFilter.module.scss';
 
-function AdminFilter() {
+interface AdminFilterProps {
+  changeFilter: React.Dispatch<React.SetStateAction<string>>;
+  changeDate: React.Dispatch<React.SetStateAction<Date>>;
+}
+
+function AdminFilter({ changeFilter, changeDate }: AdminFilterProps) {
   return (
     <LocalizationProvider dateAdapter={AdapterLuxon}>
       <aside className={styles.container}>
@@ -17,7 +22,7 @@ function AdminFilter() {
           sx={{ width: '255px', height: 'inherit', borderRadius: '16px', border: '2px solid gray' }}
           slotProps={{ textField: { size: 'small' } }}
           onChange={(e) => {
-            console.log(e);
+            // changeDate(e.);
           }}
         />
         <div className={styles.product}>

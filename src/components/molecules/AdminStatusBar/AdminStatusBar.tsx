@@ -7,17 +7,25 @@ import { getCurrentData } from '@src/utils/getCurrentData';
 import { Modal } from '@src/components/organisms';
 import FullBid from '../FullBid/FullBid';
 import SmallBid from '../SmallBid/SmallBid';
+import { Colors } from '@src/components/constants';
 
 function AdminStatusBar() {
   const { currentTab, contracts, feeds } = useAdminStore((store) => store);
 
   const [count, setCount] = useState(0);
   const [isDisplay, setDisplay] = useState(false);
+  const [color, setColor] = useState<keyof typeof Colors>('blue');
 
   const currentDataTitle = mapAdminCurrentTab(currentTab);
 
   const handleAddClick = () => {
-    setDisplay(true);
+    const colorVariant = prompt('Введите тип тарифа (blue / green / orange / red): ');
+    if (colorVariant && ['blue', 'green', 'orange', 'red'].includes(colorVariant)) {
+      setColor(colorVariant as keyof typeof Colors);
+      setDisplay(true);
+    } else {
+      alert('Введите корректный тип тарифа!');
+    }
   };
 
   useEffect(() => {
@@ -42,7 +50,7 @@ function AdminStatusBar() {
         <div className={styles.form}>
           {mapAdminCurrentTab(currentTab).includes('ФЛ') ? (
             <FullBid
-              color='blue'
+              color={color}
               description='Оставить заявку'
               setModalDisplay={setDisplay}
               tariffValue={400}
@@ -50,7 +58,7 @@ function AdminStatusBar() {
             />
           ) : (
             <SmallBid
-              color='blue'
+              color={color}
               description='Заполнить заявку'
               setModalDisplay={setDisplay}
               tariffValue={1}
