@@ -31,7 +31,7 @@ function AdminContractItem({ contract, index }: AdminContractItemProps) {
           onClick={handleClick}
         />
       </div>
-      <p>{userId.fullName}</p>
+      <p>{(data.data as CreatePersonContractData).fullName || userId.fullName}</p>
       <div className={styles.tariffName}>
         <img
           src='/src/assets/admin/contract-item/earth.png'
@@ -46,7 +46,7 @@ function AdminContractItem({ contract, index }: AdminContractItemProps) {
           alt='3 dots'
           className={styles.image}
         />
-        <p>{userId.phone}</p>
+        <p>{(data.data as CreatePersonContractData).phone || userId.phone}</p>
       </div>
       <div className={styles.address}>
         <img

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 
-import { secondApi } from '@src/api/api';
+import { firstApi, secondApi } from '@src/api/api';
 import {
   AdminCurrentTab,
   ContractData,
@@ -19,6 +19,7 @@ type AdminStore = {
   pdf: FormData | null;
   getContracts: () => Promise<unknown>;
   getFeeds: () => Promise<unknown>;
+  updateFeeds: () => Promise<unknown>;
   updateContract: (body: UpdateContractData) => Promise<unknown>;
   changeCurrentTab: (newTab: AdminCurrentTab) => void;
 };
@@ -46,7 +47,27 @@ export const useAdminStore = create<AdminStore>()(
         }
       }
     },
-    getFeeds: async () => {},
+    getFeeds: async () => {
+      try {
+        const { data } = await secondApi.get('/feed/all');
+        set({ feeds: data });
+      } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+          console.error('Error get contacts with status', error.status);
+          set(() => ({ errorMessage: error.message }));
+        }
+      }
+    },
+    updateFeeds: async () => {
+      try {
+        firstApi.post('/feed/update');
+      } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+          console.error('Error get contacts with status', error.status);
+          set(() => ({ errorMessage: error.message }));
+        }
+      }
+    },
     updateContract: async (body: UpdateContractData) => {
       try {
         const { data } = await secondApi.post('/contract/update', body, {

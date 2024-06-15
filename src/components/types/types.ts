@@ -134,14 +134,19 @@ export interface UpdateContractData {
 }
 
 export type AdminCurrentTab =
-  'ФД' | // Физ лицо договоры
-  'ФП' | // Физ лицо полные заявки
-  'ФК' | // Физ лицо короткие заявки
-  'ЮД' | // Юр лицо договоры
-  'ЮЗ'; // Юр лицо заявки
+  | 'ФД' // Физ лицо договоры
+  | 'ФП' // Физ лицо полные заявки
+  | 'ФК' // Физ лицо короткие заявки
+  | 'ЮД' // Юр лицо договоры
+  | 'ЮЗ'; // Юр лицо заявки
 
 export interface FeedData {
   feedId: string;
-  userId: unknown;
+  userId: {
+    login: string;
+    fullName: string;
+    phone: string;
+    type: string;
+  };
   isActive: boolean;
 }

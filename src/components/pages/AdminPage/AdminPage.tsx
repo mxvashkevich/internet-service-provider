@@ -17,7 +17,7 @@ import { getCurrentData } from '@src/utils/getCurrentData';
 import { ContractData } from '@src/components/types/types';
 
 function AdminPage() {
-  const { errorMessage, contracts, feeds, currentTab, getContracts } = useAdminStore(
+  const { errorMessage, contracts, feeds, currentTab, getContracts, getFeeds } = useAdminStore(
     (store) => store,
   );
   const [conractsFiltered, setContractsFiltered] = useState(contracts);
@@ -33,6 +33,7 @@ function AdminPage() {
   useEffect(() => {
     if (!isAdmin) navigate('/');
     getContracts();
+    getFeeds();
   }, []);
 
   useEffect(() => {
@@ -50,8 +51,6 @@ function AdminPage() {
 
     setContractsFiltered(filteredContracts);
   }, [findQuery, contracts]);
-
-
 
   return (
     <AnimatePresence>

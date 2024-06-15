@@ -3,3 +3,33 @@
   height: 90vh;
   @apply flex flex-col justify-center items-center overflow-scroll;
 }
+
+.form {
+  @apply flex flex-col gap-5 w-full justify-center items-center;
+}
+
+.form > input {
+  @apply border-2 rounded-md w-full h-10;
+}
+
+.form > button {
+  @apply border-2 rounded-md h-12;
+}
+
+.images {
+  margin-top: 50%;
+  @apply flex flex-row justify-center items-center gap-5 h-full w-full
+  ;
+}
+
+.images > img {
+  @apply w-1/2 h-auto rounded-3xl p-3 shadow-md;
+}
+
+.download {
+  @apply size-8
+}
+
+span {
+  @apply mr-5;
+}

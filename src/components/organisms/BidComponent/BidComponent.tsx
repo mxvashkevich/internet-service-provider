@@ -33,9 +33,6 @@ function BidComponent({ title }: IBidProps) {
     const address = bidValue;
     const email = inputRef.current.value;
 
-    console.log('address', address, regExs.address.test(address));
-    console.log('email', email, regExs.email.test(email));
-
     switch (true) {
       case email === '':
       case address === '':

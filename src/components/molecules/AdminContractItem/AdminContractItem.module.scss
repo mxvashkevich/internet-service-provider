@@ -13,6 +13,7 @@
 }
 
 .container {
+  overflow: hidden;
   @apply
   rounded-xl
   hover:shadow-xl
@@ -20,6 +21,17 @@
   flex flex-col items-start justify-between gap-3
   shadow-md
   p-5;
+}
+
+.container-feed {
+  padding: 40px 60px;
+  overflow: hidden;
+  @apply
+  rounded-xl
+  hover:shadow-xl
+  text-lg
+  flex flex-col items-start justify-between gap-3
+  shadow-md
 }
 
 .address, .tariffName, .phone, .header {

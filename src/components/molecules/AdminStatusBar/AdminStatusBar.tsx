@@ -9,22 +9,58 @@ import FullBid from '../FullBid/FullBid';
 import SmallBid from '../SmallBid/SmallBid';
 import { Colors } from '@src/components/constants';
 
+type TariffNumber = 1 | 1.5 | 200 | 300 | 400 | 500;
+
 function AdminStatusBar() {
   const { currentTab, contracts, feeds } = useAdminStore((store) => store);
 
   const [count, setCount] = useState(0);
   const [isDisplay, setDisplay] = useState(false);
   const [color, setColor] = useState<keyof typeof Colors>('blue');
-
+  const [tariff, setTariff] = useState<TariffNumber>(1);
   const currentDataTitle = mapAdminCurrentTab(currentTab);
 
+  const tariffMapping = {
+    1: 'red',
+    1.5: 'blue',
+    200: 'blue',
+    300: 'red',
+    400: 'green',
+    500: 'orange',
+  };
+
+  const isLaw = currentTab.includes('Ю');
+  const isPerson = currentTab.includes('Ф');
+
   const handleAddClick = () => {
-    const colorVariant = prompt('Введите тип тарифа (blue / green / orange / red): ');
-    if (colorVariant && ['blue', 'green', 'orange', 'red'].includes(colorVariant)) {
-      setColor(colorVariant as keyof typeof Colors);
-      setDisplay(true);
-    } else {
-      alert('Введите корректный тип тарифа!');
+    if (isLaw) {
+      const tariffType = prompt('Введите тип тарифа Бизнес (1 / 1.5): ');
+      if (tariffType) {
+        if (['1', '1.5'].includes(tariffType)) {
+          setColor(tariffMapping[tariffType] as keyof typeof Colors);
+          setTariff(Number(tariffType) as TariffNumber);
+          setDisplay(true);
+        } else {
+          alert('Введите корректный тип тарифа!');
+        }
+      } else {
+        alert('Введите тип тарифа!');
+      }
+    }
+
+    if (isPerson) {
+      const tariffType = prompt('Введите тип тарифа Домашний (200 / 300 / 400 / 500): ');
+      if (tariffType) {
+        if (['200', '300', '400', '500'].includes(tariffType)) {
+          setColor(tariffMapping[tariffType] as keyof typeof Colors);
+          setTariff(Number(tariffType) as TariffNumber);
+          setDisplay(true);
+        } else {
+          alert('Введите корректный тип тарифа!');
+        }
+      } else {
+        alert('Введите тип тарифа!');
+      }
     }
   };
 
@@ -48,12 +84,12 @@ function AdminStatusBar() {
       />
       <Modal isDisplay={isDisplay} setDisplay={setDisplay} hasCloseBtn={false} isFullSizeContent>
         <div className={styles.form}>
-          {mapAdminCurrentTab(currentTab).includes('ФЛ') ? (
+          {isPerson ? (
             <FullBid
               color={color}
               description='Оставить заявку'
               setModalDisplay={setDisplay}
-              tariffValue={400}
+              tariffValue={tariff}
               isAdminCreate
             />
           ) : (
@@ -61,7 +97,7 @@ function AdminStatusBar() {
               color={color}
               description='Заполнить заявку'
               setModalDisplay={setDisplay}
-              tariffValue={1}
+              tariffValue={tariff}
               isAdminCreate
             />
           )}
