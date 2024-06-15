@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import { Button } from '@mui/material';
 
 import { Colors, colorStyles } from '@src/components/constants';
@@ -10,6 +11,7 @@ interface IButtonProps {
   text: string;
   textSize?: string;
   onClick?: () => void;
+  disabled?: boolean;
 }
 
 function MyButton({
@@ -19,11 +21,13 @@ function MyButton({
   variant = 'contained',
   textSize = '18px',
   onClick,
+  disabled = false,
 }: IButtonProps) {
   return (
     <Button
       onClick={onClick}
       variant={variant}
+      disabled={disabled}
       type={type}
       sx={{
         backgroundColor: colorStyles[color],

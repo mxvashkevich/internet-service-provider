@@ -36,7 +36,6 @@ function SmallBid({
 
     if (!validateFormEntries(formValues, setError)) {
       createContract(formValues, 'law', getTariffId(tariffs, 'Бизнес', tariffValue));
-      setModalDisplay((prev) => !prev);
     }
   };
 
@@ -77,23 +76,13 @@ function SmallBid({
         <form onSubmit={handlerFormSubmit} className={styles.form}>
           {fetchError && <p>{fetchError}</p>}
           <Finder error={isErrorForm} name='address' placeholder='Введите адрес' />
-          <MyInput
-            error={isErrorForm}
-            name='email'
-            type='email'
-            placeholder='Введите адрес электронной почты'
-          />
-          <MyInput
-            error={isErrorForm}
-            name='orgName'
-            type='other'
-            placeholder='Введите наименование компании'
-          />
+          <MyInput name='email' type='email' placeholder='Введите адрес электронной почты' />
+          <MyInput name='orgName' type='other' placeholder='Введите наименование компании' />
           <TitledCheckbox
             name='isAcceptPolicy'
             title='Я согласен на обработку персональных данных'
           />
-          <MyButton type='submit' text='Отправить' color={color} />
+          <MyButton type='submit' text='Отправить' color={color} disabled={isErrorForm} />
         </form>
       </div>
     </div>

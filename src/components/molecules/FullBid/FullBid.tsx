@@ -117,10 +117,9 @@ function FullBid({
             placeholder='Введите адрес'
           />
           <MyInput
-            error={isErrorForm}
-            name='email'
             onDebouncedChange={() => {}}
             type='email'
+            name='email'
             placeholder='Введите адрес электронной почты'
           />
           <div className={`${styles.imgWrapper} ${isErrorFile ? styles.error : ''}`}>

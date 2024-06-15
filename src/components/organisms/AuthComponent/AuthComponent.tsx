@@ -1,4 +1,4 @@
-import { FormEventHandler, useEffect, useState } from 'react';
+import { FormEventHandler, useEffect, useRef, useState } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,7 +7,6 @@ import { AuthFormLogin, AuthFormRegister } from '@src/components/types/types';
 
 import styles from './AuthComponent.module.scss';
 import { useAuthStore } from '@src/store/authStore';
-import { error } from "console";
 
 interface IAuthComponentProps {
   setDisplayModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -27,8 +26,7 @@ export default function AuthComponent({ setDisplayModal }: IAuthComponentProps) 
   const navigate = useNavigate();
 
   const [isLogin, setLogin] = useState(true);
-  const [formError, setFormError] = useState(false);
-  const [isFormValidateError, setIsFormValidateError] = useState(false);
+  const [hasFormError, setHasFormError] = useState(false);
 
   const initialState = isLogin
     ? {
@@ -44,24 +42,73 @@ export default function AuthComponent({ setDisplayModal }: IAuthComponentProps) 
 
   const [authForm, setAuthForm] = useState<AuthFormRegister | AuthFormLogin>(() => initialState);
 
+  const fullNameRef = useRef<HTMLInputElement | null>(null);
+  const phoneRef = useRef<HTMLInputElement | null>(null);
+  const loginRef = useRef<HTMLInputElement | null>(null);
+  const passwordRef = useRef<HTMLInputElement | null>(null);
+
+  const validateForm = () => {
+    const fullName = fullNameRef.current?.value;
+    const phone = phoneRef.current?.value;
+    const login = loginRef.current?.value;
+    const password = passwordRef.current?.value;
+
+    const regExs = {
+      email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+      phone: /^\+7\d{10}$/,
+      password: /^.{4,20}$/,
+      fullName: /^(?=.{10,})[А-Яа-яЁё0-9\s\-,.]+$/,
+      login: /^[a-zA-Z0-9]{5,20}$/,
+    };
+
+    if (isLogin && login && password) {
+      switch (true) {
+        case Object.values(authForm).every((item) => item === ''):
+        case login === '':
+        case password === '':
+        case !regExs.login.test(login):
+        case !regExs.password.test(password):
+          setHasFormError(true);
+          return false;
+        default:
+          setHasFormError(false);
+          return true;
+      }
+    } else if (!isLogin && login && password && phone && fullName) {
+      switch (true) {
+        case Object.values(authForm).every((item) => item === ''):
+        case login === '':
+        case password === '':
+        case !regExs.login.test(login):
+        case !regExs.password.test(password):
+        case !regExs.fullName.test(fullName):
+        case !regExs.phone.test(phone):
+          setHasFormError(true);
+          return false;
+        default:
+          setHasFormError(false);
+          return true;
+      }
+    }
+  };
+
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    if (isFormValidateError) return;
-    if (Object.values(authForm).every((item) => item === '')) {
-      setFormError(true);
-    } else {
-      setFormError(false);
-      Object.keys(authForm).length < 4
-        ? authLogin(authForm)
-        : authRegister(authForm as AuthFormRegister);
+
+    const isFormValid = validateForm();
+
+    if (isFormValid) {
+      isLogin ? authLogin(authForm) : authRegister(authForm as AuthFormRegister);
+
       if (fetchError !== '') {
-        setDisplayModal((prev) => !prev);
         clearFetchError();
         clearFetchSuccess();
       }
-    }
-    if (fetchSuccess !== '') {
-      setDisplayModal((prev) => !prev);
+
+      if (fetchSuccess !== '') {
+        setDisplayModal((prev) => !prev);
+        setHasFormError(false);
+      }
     }
   };
 
@@ -90,7 +137,7 @@ export default function AuthComponent({ setDisplayModal }: IAuthComponentProps) 
       <Typography variant='h4' fontWeight={500} fontSize={'32px'}>
         {isLogin ? 'Вход в систему' : 'Регистрация'}
       </Typography>
-      {formError && (
+      {hasFormError && (
         <p style={{ border: '1px solid tomato', borderRadius: '5px', padding: '5px' }}>
           Форма не заполнена, повторите еще раз
         </p>
@@ -104,42 +151,42 @@ export default function AuthComponent({ setDisplayModal }: IAuthComponentProps) 
         {!isLogin && (
           <>
             <MyInput
+              ref={fullNameRef}
               key={`${fetchError}1`}
               onDebouncedChange={setAuthForm}
               className={styles.input}
               type='fullName'
+              name='fullName'
               placeholder='Введите ФИО'
-              error={isFormValidateError}
-              setError={setIsFormValidateError}
             />
             <MyInput
+              ref={phoneRef}
               key={`${fetchError}2`}
               onDebouncedChange={setAuthForm}
               className={styles.input}
               type='phone'
+              name='phone'
               placeholder='+79001234455'
-              error={isFormValidateError}
-              setError={setIsFormValidateError}
             />
           </>
         )}
         <MyInput
+          ref={loginRef}
           key={`${fetchError}3`}
           onDebouncedChange={setAuthForm}
           className={styles.input}
           type='login'
+          name='login'
           placeholder='Введите логин'
-          error={isFormValidateError}
-          setError={setIsFormValidateError}
         />
         <MyInput
+          ref={passwordRef}
           key={`${fetchError}4`}
           onDebouncedChange={setAuthForm}
           className={styles.input}
           type='password'
+          name='password'
           placeholder='Введите пароль'
-          error={isFormValidateError}
-          setError={setIsFormValidateError}
         />
         <Box className={styles.btns}>
           <Button
@@ -147,7 +194,7 @@ export default function AuthComponent({ setDisplayModal }: IAuthComponentProps) 
             color='primary'
             onClick={() => {
               clearFetchError();
-              setFormError(false);
+              setHasFormError(false);
               setLogin((prev) => !prev);
             }}
           >

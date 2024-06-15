@@ -177,4 +177,5 @@ export const REGEX = {
   password: /^.{4,20}$/,
   fullName: /^(?=.{10,})[А-Яа-яЁё0-9\s\-,.]+$/,
   login: /^[a-zA-Z0-9]{5,20}$/,
+  other: /^.{4,50}$/,
 };

@@ -1,61 +1,49 @@
-import { ChangeEventHandler, Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { TextField, TextFieldProps } from '@mui/material';
+import {
+  ChangeEventHandler,
+  Dispatch,
+  SetStateAction,
+  forwardRef,
+  useEffect,
+  useState,
+} from 'react';
+import { TextField } from '@mui/material';
 
 import { mapInputTypeForError } from '@src/utils/mapper';
 import { REGEX } from '@src/components/constants';
 
 import styles from './MyInput.module.scss';
 
-interface IInputProps<T> {
+interface IInputProps {
   type: keyof typeof REGEX;
   placeholder: string;
   name: string;
   className?: string;
-  error?: boolean;
-  setError?: Dispatch<SetStateAction<boolean>>;
-  onDebouncedChange?: Dispatch<SetStateAction<T>>;
+  onDebouncedChange?: Dispatch<SetStateAction<any>>;
 }
-
-function MyInput<T>({
-  type,
-  placeholder,
-  name,
-  className = '',
-  onDebouncedChange,
-  setError,
-  ...args
-}: TextFieldProps & IInputProps<T>) {
+const MyInput = forwardRef<HTMLInputElement, IInputProps>(function MyInput(props, ref) {
   const [value, setValue] = useState('');
   const [localError, setLocalError] = useState(false);
 
   const validateInput = (inputValue: string, regex: RegExp) => {
     const test = regex.test(inputValue);
     switch (true) {
-      case !test && !!setError:
-        setLocalError(true);
-        setError(true);
-        break;
       case !test:
         setLocalError(true);
         break;
-      case (inputValue === '' || value === '') && !!setError:
-        setError(false);
-        setLocalError(false);
-        break;
+      case test:
       case inputValue === '' || value === '':
         setLocalError(false);
         break;
+
       default:
         setLocalError(false);
-        setError ? setError(false) : null;
     }
   };
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     if (!e.target) return;
     const inputValue = (e.target as HTMLInputElement).value;
-
-    validateInput(inputValue, REGEX[type]);
+    validateInput(inputValue, REGEX[props.type]);
 
     setValue(inputValue);
   };
@@ -63,10 +51,10 @@ function MyInput<T>({
   useEffect(() => {
     if (value) {
       const timeoutId = setTimeout(() => {
-        if (onDebouncedChange) {
-          onDebouncedChange((prevState) => ({
+        if (props.onDebouncedChange) {
+          props.onDebouncedChange((prevState: any) => ({
             ...prevState,
-            [type]: value,
+            [props.type]: value,
           }));
         }
       }, 800);
@@ -74,26 +62,25 @@ function MyInput<T>({
     }
   }, [value]);
 
-  useEffect(() => {
-    console.log('localerror', localError);
-  });
   return (
     <TextField
-      {...args}
-      className={className ? `${className}` : styles.input}
-      name={name}
+      {...props}
+      className={props.className ? `${props.className}` : styles.input}
+      name={props.name}
       sx={{
         '& .MuiFormHelperText-root': {
           margin: '0 auto',
         },
       }}
-      placeholder={placeholder}
+      inputRef={ref}
+      placeholder={props.placeholder}
       value={value}
       onChange={handleChange}
-      type={type}
-      helperText={localError ? mapInputTypeForError(type) : ''}
+      type={props.type}
+      error={localError}
+      helperText={localError ? mapInputTypeForError(props.type) : ''}
     />
   );
-}
+});
 
 export default MyInput;
